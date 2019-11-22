@@ -21,7 +21,7 @@ namespace Oefenplatform.WebAPI.Controllers
         [HttpGet]
         public override async Task<IActionResult> Get()
         {
-            return Ok(await repository.GetAllInclusive());
+            return Ok(await _repository.GetAllInclusive());
         }
 
         #region AutoMapper Methods
@@ -30,7 +30,7 @@ namespace Oefenplatform.WebAPI.Controllers
         [Route("MathFirstGradeQuestions")]
         public async Task<IActionResult> GetMathFirstGradeQuestions()
         {
-            return Ok(await repository.ListMathFirstGradeQuestions());
+            return Ok(await _repository.ListMathFirstGradeQuestions());
         }
 
         //Get MathQuestions for FirstGrade
@@ -38,7 +38,7 @@ namespace Oefenplatform.WebAPI.Controllers
         [Route("MathSecondGradeQuestions")]
         public async Task<IActionResult> GetMathSecondGradeQuestions()
         {
-            return Ok(await repository.ListMathSecondGradeQuestions());
+            return Ok(await _repository.ListMathSecondGradeQuestions());
         }
 
         //Get First Grade language Questions (And Answers)
@@ -46,7 +46,7 @@ namespace Oefenplatform.WebAPI.Controllers
         [Route("LangFirstGradeQuestions")]
         public async Task<IActionResult> GetLangFirstGradeQuestions()
         {
-            return Ok(await repository.ListLangFirstGradeQuestions());
+            return Ok(await _repository.ListLangFirstGradeQuestions());
         }
 
         //Get Second Grade Language Questions (And Answers)
@@ -54,7 +54,7 @@ namespace Oefenplatform.WebAPI.Controllers
         [Route("LangSecondGradeQuestions")]
         public async Task<IActionResult> GetLangSecondGradeQuestions()
         {
-            return Ok(await repository.ListLangSecondGradeQuestions());
+            return Ok(await _repository.ListLangSecondGradeQuestions());
         }
 
         //Get Third Grade Language Questions (And Answers)
@@ -62,7 +62,7 @@ namespace Oefenplatform.WebAPI.Controllers
         [Route("LangThirdGradeQuestions")]
         public async Task<IActionResult> GetLangThirdGradeQuestions()
         {
-            return Ok(await repository.ListLangThirdGradeQuestions());
+            return Ok(await _repository.ListLangThirdGradeQuestions());
         }
         #endregion
         [HttpPut("{id}")]
@@ -77,7 +77,7 @@ namespace Oefenplatform.WebAPI.Controllers
                 return BadRequest();
             }
 
-            Question updatedEntity = await repository.UpdateAllInclusive(question);
+            Question updatedEntity = await _repository.UpdateAllInclusive(question);
             if (updatedEntity == null)
             {
                 return NotFound();
