@@ -20,7 +20,7 @@
     "Oefenplatform.WebAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values", //to do: change this
+      "launchUrl": "api/question", //to do: change this
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
