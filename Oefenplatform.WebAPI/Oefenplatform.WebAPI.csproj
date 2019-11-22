@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Oefenplatform.Lib\Oefenplatform.Lib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
