@@ -1,0 +1,24 @@
+﻿@using Oefenplatform.Lib.Models
+@model List<Question>
+@{
+	ViewData["Title"] = "QuestionList";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>Question overview</h1>
+
+<div class="row">
+	<div class="col-4">
+		<ul class="list-group">
+			@foreach (var question in Model)
+			{
+				<li class="list-group-item">
+					<a asp-area="" asp-controller="Questions" asp-action="Detail" asp-route-id="@question.Id">
+						@question.QuestionTitle
+					</a> <em>Beschrijving:(@question.Description)</em>
+				</li>
+			}
+		</ul>
+	</div>
+</div>

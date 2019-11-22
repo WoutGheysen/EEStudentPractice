@@ -16,7 +16,7 @@ using Oefenplatform.WebAPI.Repositories;
 
 namespace Oefenplatform.MVC.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    [Authorize] //don"t forget to allow anonymous to "seed" admin
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
