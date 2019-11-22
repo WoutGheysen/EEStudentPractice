@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Oefenplatform.Lib.DTO;
-using Oefenplatform.Lib.DTO.QuestionDto;
+﻿using Microsoft.EntityFrameworkCore;
 using Oefenplatform.Lib.Models;
 using Oefenplatform.WebAPI.Constants;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Oefenplatform.WebAPI.Data
 {
@@ -665,7 +664,7 @@ namespace Oefenplatform.WebAPI.Data
             //Feedback: Fotoselectie
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 6,
                     Reference = 1,
@@ -676,7 +675,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 7,
                     Reference = 2,
@@ -687,7 +686,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 8,
                     Reference = 1,
@@ -698,7 +697,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 9,
                     Reference = 2,
@@ -709,7 +708,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 10,
                     Reference = 1,
@@ -720,7 +719,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 11,
                     Reference = 2,
@@ -731,7 +730,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 12,
                     Reference = 1,
@@ -742,7 +741,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 13,
                     Reference = 2,
@@ -753,7 +752,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 14,
                     Reference = 1,
@@ -764,7 +763,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 15,
                     Reference = 2,
@@ -777,7 +776,7 @@ namespace Oefenplatform.WebAPI.Data
             //SAME AS Fotoselectie
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 16,
                     Reference = 1,
@@ -788,7 +787,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 17,
                     Reference = 2,
@@ -799,7 +798,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 18,
                     Reference = 1,
@@ -810,7 +809,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 19,
                     Reference = 2,
@@ -821,7 +820,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 20,
                     Reference = 1,
@@ -832,7 +831,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 21,
                     Reference = 2,
@@ -843,7 +842,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 22,
                     Reference = 1,
@@ -854,7 +853,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 23,
                     Reference = 2,
@@ -865,7 +864,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 24,
                     Reference = 1,
@@ -876,7 +875,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 25,
                     Reference = 2,
@@ -888,7 +887,7 @@ namespace Oefenplatform.WebAPI.Data
             //Feedback: Klanken
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 26,
                     Reference = 1,
@@ -899,7 +898,7 @@ namespace Oefenplatform.WebAPI.Data
 
             modelBuilder.Entity<Feedback>()
                 .HasData(
-                new 
+                new
                 {
                     Id = 27,
                     Reference = 2,
@@ -1240,6 +1239,5 @@ namespace Oefenplatform.WebAPI.Data
         public DbSet<Feedback> Feedback { get; set; }
         public DbSet<WrongAnswer> WrongAnswer { get; set; }
         public DbSet<AssessmentDetail> AssessmentDetails { get; set; }
-
     }
 }

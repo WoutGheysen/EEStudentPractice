@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Oefenplatform.WebAPI.Data;
+using Oefenplatform.WebAPI.Repositories;
 using Oefenplatform.WebAPI.Services.AutoMapper;
 
 namespace Oefenplatform.WebAPI
@@ -27,6 +30,20 @@ namespace Oefenplatform.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddDbContext<OefenplatformContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Oefenplatform")));
+            services.AddScoped<SchoolUserRepository>();
+            services.AddScoped<AssessmentDetailRepository>();
+            services.AddScoped<ClassGroupRepository>();
+            services.AddScoped<AssessmentRepository>();
+            services.AddScoped<FeedbackRepository>();
+            services.AddScoped<CourseCategoryRepository>();
+            services.AddScoped<QuestionCategoryRepository>();
+            services.AddScoped<QuestionRepository>();
+            services.AddScoped<SchoolUserCategoryRepository>();
+            services.AddScoped<WrongAnswerRepository>();
+            services.AddScoped<YearGradeRepository>();
+            services.AddScoped<AnswerRepository>();
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
