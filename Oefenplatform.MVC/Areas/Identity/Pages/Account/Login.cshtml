@@ -1,0 +1,55 @@
+﻿@page
+@model LoginModel
+
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<environment include="Development">
+		<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+	</environment>
+	<environment exclude="Development">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+			  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+			  crossorigin="anonymous"
+			  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+	</environment>
+	<link rel="stylesheet" href="~/css/frontPage.css" />
+</head>
+<body>
+	<div class="row justify-content-center text-center">
+		<div class="col-md-6">
+			<img src="~/images/biesWeideLogo.png" />
+			<section>
+				<div class="container">
+					<form id="account" method="post">
+						<h4 id="meldJeAan">Meld je aan:</h4>
+						<hr />
+						<div class="form-group">
+							<input asp-for="Input.Name" class="form-control" placeholder="Naam" />
+							<span asp-validation-for="Input.Name" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<input asp-for="Input.Password" class="form-control" placeholder="Wachtwoord" />
+							<span asp-validation-for="Input.Password" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Log in</button>
+						</div>
+					</form>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	@section Scripts {
+		<partial name="_ValidationScriptsPartial" />
+	}
+</body>
+</html>

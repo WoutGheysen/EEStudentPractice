@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oefenplatform.WebAPI", "Oef
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oefenplatform.Lib", "Oefenplatform.Lib\Oefenplatform.Lib.csproj", "{16CCDA86-A511-476E-A903-5AA544F342D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oefenplatform.MVC", "Oefenplatform.MVC\Oefenplatform.MVC.csproj", "{86012734-61FC-4DFC-B45B-D3F3DC6D7230}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oefenplatform.MVC", "Oefenplatform.MVC\Oefenplatform.MVC.csproj", "{349C7F19-265E-4283-9217-F15BC4543367}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{16CCDA86-A511-476E-A903-5AA544F342D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16CCDA86-A511-476E-A903-5AA544F342D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16CCDA86-A511-476E-A903-5AA544F342D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86012734-61FC-4DFC-B45B-D3F3DC6D7230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86012734-61FC-4DFC-B45B-D3F3DC6D7230}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86012734-61FC-4DFC-B45B-D3F3DC6D7230}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86012734-61FC-4DFC-B45B-D3F3DC6D7230}.Release|Any CPU.Build.0 = Release|Any CPU
+		{349C7F19-265E-4283-9217-F15BC4543367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{349C7F19-265E-4283-9217-F15BC4543367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{349C7F19-265E-4283-9217-F15BC4543367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{349C7F19-265E-4283-9217-F15BC4543367}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

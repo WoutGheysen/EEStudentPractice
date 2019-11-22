@@ -13,6 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using Oefenplatform.MVC.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Oefenplatform.WebAPI.Data;
+using Oefenplatform.WebAPI.Controllers;
+using Oefenplatform.WebAPI.Repositories;
 
 namespace Oefenplatform.MVC
 {
@@ -34,7 +37,13 @@ namespace Oefenplatform.MVC
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            services.AddDbContext<OefenplatformContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("Oefenplatform")));
+            services.AddScoped<SchoolUserController>();
+            services.AddScoped<SchoolUserCategoryRepository>();
+            services.AddScoped<ClassGroupRepository>();
+            services.AddScoped<SchoolUserRepository>();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));

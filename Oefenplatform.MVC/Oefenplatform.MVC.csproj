@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <UserSecretsId>aspnet-Oefenplatform.MVC-813922C4-2F4F-4FC2-8614-7DBA40D8BD90</UserSecretsId>
+    <UserSecretsId>aspnet-Oefenplatform.MVC-BC750D1B-F9AA-484A-A27C-C5BD8A3E60D1</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
@@ -10,11 +10,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\Oefenplatform.Lib\Oefenplatform.Lib.csproj" />
+    <ProjectReference Include="..\Oefenplatform.WebAPI\Oefenplatform.WebAPI.csproj" />
   </ItemGroup>
 
 </Project>
