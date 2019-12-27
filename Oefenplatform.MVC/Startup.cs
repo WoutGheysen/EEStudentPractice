@@ -41,6 +41,7 @@ namespace Oefenplatform.MVC
                 options.UseSqlServer(
                     Configuration.GetConnectionString("Oefenplatform")));
             services.AddScoped<SchoolUserController>();
+            services.AddScoped<QuestionController>();
             services.AddScoped<SchoolUserCategoryRepository>();
             services.AddScoped<ClassGroupRepository>();
             services.AddScoped<SchoolUserRepository>();
@@ -78,8 +79,12 @@ namespace Oefenplatform.MVC
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                name: "areas",
+                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+             );
+                routes.MapRoute(
+                name: "default",
+                template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

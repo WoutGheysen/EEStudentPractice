@@ -1,0 +1,47 @@
+﻿@model Oefenplatform.MVC.Areas.Admin.Models.LangFirstQuestions.LangFirstQuestionsIndexVm
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container border border-dark rounded textdiv">
+    <h1 class="text-center">Language Questions First Grade</h1>
+    <table class="table table-bordered table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Questions)
+                </th>
+                <th scope="col">
+                    Details
+                </th>
+                <th scope="col">
+                    Edit
+                </th>
+                <th scope="col">
+                    Delete
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Questions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionTitle)
+                    </td>
+                    <td>
+                        @*<a asp-action="Details" asp-route-id="@item.Id">Details</a>*@
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@
+                    </td>
+                    <td>
+                        @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
