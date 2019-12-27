@@ -16,9 +16,10 @@ namespace Oefenplatform.WebAPI.Repositories
 {
     public class QuestionRepository : RepositoryMapping<Question>
     {
-        public QuestionRepository(OefenplatformContext oefenplatformContext, IMapper mapper):base (oefenplatformContext, mapper)
+        private readonly QuestionCategoryRepository _repo;
+        public QuestionRepository(OefenplatformContext oefenplatformContext, IMapper mapper, QuestionCategoryRepository repo) :base (oefenplatformContext, mapper)
         {
-            
+            _repo = repo;
         }
         #region AutoMapper Methods
         /// <summary>

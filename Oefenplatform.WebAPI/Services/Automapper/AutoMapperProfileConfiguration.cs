@@ -23,9 +23,17 @@ namespace Oefenplatform.WebAPI.Services.AutoMapper
             CreateMap<Question, MathSecondGradeQuestionDto>();
 
             //Language Questions DTO's
-            CreateMap<Question, LangFirstGradeQuestionDto>().ForMember(
+            CreateMap<Question, LangFirstGradeQuestionDto>()
+                .ForMember(
                 dest => dest.Answer,
-                opts => opts.MapFrom(src => src.Answer.LangAnswer));
+                opts => opts.MapFrom(src => src.Answer.LangAnswer))
+                .ForMember(
+                dest => dest.Feedback,
+                opts => opts.MapFrom(src => src.Feedback))
+                .ForMember(
+                dest => dest.QuestionCategory,
+                opts => opts.MapFrom(src => src.QuestionCategory));
+
             CreateMap<Question,LangSecondGradeQuestionDto>().ForMember(
                 dest => dest.Answer,
                 opts => opts.MapFrom(src => src.Answer.LangAnswer));
