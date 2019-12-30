@@ -43,6 +43,9 @@ namespace Oefenplatform.MVC.Areas.Identity.Pages.Account
             _schoolUserController = schoolUserController;
             _classGroupRepository = classGroupRepository;
             _schoolUserCategoryRepository = schoolUserCategoryRepository;
+
+            ClassGroupOptions = new SelectList(_classGroupRepository.GetAll(), nameof(ClassGroup.Id), nameof(ClassGroup.ClassGroupName));
+            SchoolUserCategoryOptions = new SelectList(_schoolUserCategoryRepository.GetAll(), nameof(SchoolUserCategory.Id), nameof(SchoolUserCategory.Category));
         }
 
         [BindProperty]
@@ -90,9 +93,6 @@ namespace Oefenplatform.MVC.Areas.Identity.Pages.Account
         public void OnGet(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
-            ClassGroupOptions = new SelectList(_classGroupRepository.GetAll(), nameof(ClassGroup.Id), nameof(ClassGroup.ClassGroupName));
-            SchoolUserCategoryOptions = new SelectList(_schoolUserCategoryRepository.GetAll(), nameof(SchoolUserCategory.Id), nameof(SchoolUserCategory.Category));
-
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
