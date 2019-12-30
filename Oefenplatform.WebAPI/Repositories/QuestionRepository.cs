@@ -48,7 +48,7 @@ namespace Oefenplatform.WebAPI.Repositories
         public async Task<List<LangFirstGradeQuestionDto>> ListLangFirstGradeQuestions()
         {
             return await _oefenplatformContext.Questions.Where(a => a.QuestionCategory.CategoryQuestion == 
-            QuestionCategories.LangQuestionFirstGrade).Include(a => a.Answer)
+            QuestionCategories.LangQuestionFirstGrade)
             .ProjectTo<LangFirstGradeQuestionDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
@@ -58,7 +58,7 @@ namespace Oefenplatform.WebAPI.Repositories
         public async Task<List<LangSecondGradeQuestionDto>> ListLangSecondGradeQuestions()
         {
             return await _oefenplatformContext.Questions.Where(a => a.QuestionCategory.CategoryQuestion == 
-            QuestionCategories.LangQuestionSecondGrade).Include(a => a.Answer)
+            QuestionCategories.LangQuestionSecondGrade)
             .ProjectTo<LangSecondGradeQuestionDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
@@ -68,7 +68,7 @@ namespace Oefenplatform.WebAPI.Repositories
         public async Task<List<LangThirdGradeQuestionDto>> ListLangThirdGradeQuestions()
         {
             return await _oefenplatformContext.Questions.Where(a => a.QuestionCategory.CategoryQuestion == 
-            QuestionCategories.LangQuestionThirdGrade).Include(a => a.Answer)
+            QuestionCategories.LangQuestionThirdGrade)
             .ProjectTo<LangThirdGradeQuestionDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
         #endregion

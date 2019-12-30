@@ -32,7 +32,7 @@ namespace Oefenplatform.WebAPI.Services.AutoMapper
                 opts => opts.MapFrom(src => src.Feedback))
                 .ForMember(
                 dest => dest.QuestionCategory,
-                opts => opts.MapFrom(src => src.QuestionCategory));
+                opts => opts.MapFrom(src => src.QuestionCategory.Id));
 
             CreateMap<Question,LangSecondGradeQuestionDto>().ForMember(
                 dest => dest.Answer,
