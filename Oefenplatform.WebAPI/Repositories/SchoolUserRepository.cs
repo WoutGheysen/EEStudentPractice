@@ -70,7 +70,7 @@ namespace Oefenplatform.WebAPI.Repositories
 
         public virtual async Task<SchoolUser> GetById(Guid id)
         {
-            return await _oefenplatformContext.Set<SchoolUser>().FindAsync(id);
+            return await _oefenplatformContext.Set<SchoolUser>().Include(u => u.SchoolUserCategory).Include(u => u.ClassGroup).Where(u => u.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<SchoolUser>> ListAll()

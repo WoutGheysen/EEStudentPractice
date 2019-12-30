@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Oefenplatform.Lib.Models;
+using Oefenplatform.MVC.Areas.Admin.Models;
 using Oefenplatform.WebAPI.Repositories;
 
 namespace Oefenplatform.MVC.Areas.Admin.Controllers
@@ -16,15 +18,17 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
         private readonly UserManager<IdentityUser> _user;
         private readonly SchoolUserRepository _schoolUserRepository;
         private readonly SchoolUserCategoryRepository _schoolUserCategoryRepository;
+        private readonly ClassGroupRepository _classGroupRepository;
 
         public HomeController(
             UserManager<IdentityUser> user, SchoolUserRepository schoolUserRepository,
-            SchoolUserCategoryRepository schoolUserCategoryRepository)
+            SchoolUserCategoryRepository schoolUserCategoryRepository, ClassGroupRepository classGroupRepository)
         {
 
             _user = user;
             _schoolUserRepository = schoolUserRepository;
             _schoolUserCategoryRepository = schoolUserCategoryRepository;
+            _classGroupRepository = classGroupRepository;
         }
 
         public IActionResult Index()
@@ -36,7 +40,17 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index", "Home", new { Area = "" });
             }
-            return View();
+
+            ICollection<ClassGroup> classGroup = _classGroupRepository.GetAll().ToList();
+            ICollection<SchoolUser> schoolUsers = _schoolUserRepository.GetAll().ToList();
+
+            UserViewModel userViewModel = new UserViewModel
+            {
+                ClassGroups = classGroup,
+                Users = schoolUsers
+            };
+
+            return View(userViewModel);
         }
     }
 }

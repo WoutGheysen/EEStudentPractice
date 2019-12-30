@@ -1,0 +1,20 @@
+﻿@model Oefenplatform.MVC.Areas.Admin.Models.UserDetailViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@($"{Model.LastName} {Model.FirstName}")</h1>
+<label>klas: @Model.ClassGroup.ClassGroupName</label><br />
+<label>Categorie: @Model.SchoolUserCategory.Category</label><br />
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Wijzigen" class="btn btn-light" /> |
+</form>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Verwijder" class="btn btn-danger" /> |
+    <a asp-controller="Home" asp-action="Index">Terug naar lijst</a>
+</form>
+
+
