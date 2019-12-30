@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Oefenplatform.MVC.Areas.Admin.Models.LangFirstQuestions
+namespace Oefenplatform.MVC.Areas.Teacher.Models.LangFirstQuestions
 {
     public class LangFirstQuestionsIndexVm
     {

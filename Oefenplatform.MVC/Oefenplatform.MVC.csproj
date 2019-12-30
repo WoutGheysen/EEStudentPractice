@@ -21,7 +21,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Teacher\Data\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,60 @@
+﻿@model Oefenplatform.MVC.Areas.Teacher.Models.LangFirstQuestions.LangFirstQuestionDetailVm
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detail</h1>
+
+<h4>Maak een nieuwe Vraag</h4>
+<hr />
+@if (ViewBag.Mode == "Edit")
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Save">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="QuestionTitle" class="control-label">Titel van de Vraag</label>
+                    <input asp-for="QuestionTitle" class="form-control" />
+                    <span asp-validation-for="QuestionTitle" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FileName" class="control-label">Afbeelding (Naam)</label>
+                    <input asp-for="FileName" class="form-control" />
+                    <span asp-validation-for="FileName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Answer" class="control-label">Antwoord</label>
+                    <input asp-for="Answer" class="form-control" />
+                    <span asp-validation-for="Answer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FirstFeedback" class="control-label">Eerste Respons</label>
+                    <input asp-for="FirstFeedback" class="form-control" />
+                    <span asp-validation-for="FirstFeedback" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SecondFeedback" class="control-label">Tweede Respons</label>
+                    <input asp-for="SecondFeedback" class="form-control" />
+                    <span asp-validation-for="SecondFeedback" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <a asp-action="Save" asp-controller="LangFirstQuestions">Save</a>
+                    @*<button type="submit" value="Save" class="btn-success">Save</button>*@
+                </div>
+                <div class="form-group">
+                    @*<a asp-action="Save" asp-controller="LangFirstQuestions">Save</a>*@
+                    <button type="submit" value="Save" class="btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+}
+
+
