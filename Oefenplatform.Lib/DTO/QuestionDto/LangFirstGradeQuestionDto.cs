@@ -11,7 +11,7 @@ namespace Oefenplatform.Lib.DTO.QuestionDto
         public string QuestionTitle { get; set; }
         public string FileName { get; set; }
         public string Answer { get; set; }
-        public ICollection<Feedback> Feedback { get; set; }
+        public List<Feedback> Feedback { get; set; }
         public int QuestionCategory { get; set; } = 2;
     }
 }
