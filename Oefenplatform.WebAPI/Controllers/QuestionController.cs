@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -146,5 +147,56 @@ namespace Oefenplatform.WebAPI.Controllers
             return Ok(new { count = 1, formFile.Length });
 
         }
+
+        
+        [HttpPost]
+        public override async Task<IActionResult> Post([FromBody]  Question qq)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+           
+            Answer aa = qq.Answer;
+            if (aa != null)
+            {
+                aa = await _aRepo.AddOrUpdate(aa);
+                qq.AnswerId = aa.Id;
+                qq.Answer = null;
+            }
+
+            QuestionCategory qc = qq.QuestionCategory;
+            if (qc != null)
+            {
+                qc = await _qtRepo.AddOrUpdate(qc);
+                qq.QuestionCategoryId = qc.Id;
+                qq.QuestionCategory = null;
+            };
+
+            ICollection<Feedback> fb = qq.Feedback;
+            qq.Feedback = null;
+
+            Question createdEntity = await _repository.AddOrUpdate(qq);
+
+            if (createdEntity == null)
+            {   
+                return NotFound();
+            }
+            
+            if (fb != null)
+            {
+                foreach (Feedback item in fb)
+                {
+                    item.QuestionId = createdEntity.Id;
+                }
+
+                fb = await _fRepo.AddOrUpdateCollection(fb);
+            }
+
+            qq.Feedback = fb;
+
+            return CreatedAtAction(nameof(Get), new { id = createdEntity.Id }, createdEntity);
+        }
+        
     }
 }

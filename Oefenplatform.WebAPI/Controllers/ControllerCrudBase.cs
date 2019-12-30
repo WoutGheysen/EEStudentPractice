@@ -57,12 +57,13 @@ namespace Oefenplatform.WebAPI.Controllers
             [HttpPost]
             public virtual async Task<IActionResult> Post([FromBody] T entity)
             {
+
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
 
-                T createdEntity = await _repository.Add(entity);
+                T createdEntity = await _repository.AddOrUpdate(entity);
                 if (createdEntity == null)
                 {
                     return NotFound();

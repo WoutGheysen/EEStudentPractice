@@ -25,5 +25,8 @@ namespace Oefenplatform.Lib.Models
         public QuestionCategory QuestionCategory { get; set; }
         //public ICollection<WrongAnswer> WrongAnswers { get; set; }
         //collection feedback
+
+        public int AnswerId { get; set; }
+        public int QuestionCategoryId { get; set; }
     }
 }

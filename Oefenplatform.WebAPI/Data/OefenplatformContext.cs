@@ -1227,6 +1227,17 @@ namespace Oefenplatform.WebAPI.Data
                     IdentityReference = "00000000-0000-0000-0000-000000000001"
                 });
             #endregion
+
+
+            modelBuilder.Entity<Question>()
+            .HasOne(q => q.Answer);
+            
+            modelBuilder.Entity<Question>()
+            .HasOne(q => q.QuestionCategory);
+
+            modelBuilder.Entity<Question>()
+            .HasMany(q => q.Feedback)
+            .WithOne(f => f.Question);
         }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<ClassGroup> ClassGroups { get; set; }

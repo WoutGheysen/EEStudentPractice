@@ -25,11 +25,41 @@ namespace Oefenplatform.WebAPI.Repositories.Base
             {
                 await _oefenplatformContext.SaveChangesAsync();
             }
-            catch
+            catch (Exception ex)
             {
+                
                 return null;
             }
             return entity;
+        }
+
+        public async Task<ICollection<T>> AddOrUpdateCollection(ICollection<T> entities)
+        {
+            ICollection<T> GoodEntities = new List<T>();
+            foreach (T item in entities)
+            {
+                GoodEntities.Add(await AddOrUpdate(item));
+            }
+
+            return GoodEntities;
+        }
+
+
+        public async Task<T> AddOrUpdate(T entity)
+        {
+            if (entity != null)
+            {
+                if (entity.Id == 0)
+                {
+                    return await Add(entity);
+                }
+                else
+                {
+                    return await Update(entity);
+                }
+            }
+            
+            return null;
         }
 
         public async Task<T> Delete(T entity)
@@ -55,7 +85,7 @@ namespace Oefenplatform.WebAPI.Repositories.Base
             }
             return await Delete(entity);
         }
-
+        
         public IQueryable<T> GetAll()
         {
             return _oefenplatformContext.Set<T>().AsNoTracking();
@@ -78,8 +108,8 @@ namespace Oefenplatform.WebAPI.Repositories.Base
             {
                 await _oefenplatformContext.SaveChangesAsync();
             }
-            catch
-            {
+            catch (Exception ex)
+            { 
                 return null;
             }
             return entity;
