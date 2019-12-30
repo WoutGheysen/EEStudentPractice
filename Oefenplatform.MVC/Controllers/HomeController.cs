@@ -20,7 +20,7 @@ namespace Oefenplatform.MVC.Controllers
         private readonly SchoolUserCategoryRepository _schoolUserCategoryRepository;
 
         public HomeController(/*SignInManager<IdentityUser> signInManager, */
-            UserManager<IdentityUser> user, SchoolUserRepository schoolUserRepository, 
+            UserManager<IdentityUser> user, SchoolUserRepository schoolUserRepository,
             SchoolUserCategoryRepository schoolUserCategoryRepository)
         {
             //_signInManager = signInManager;
@@ -30,31 +30,23 @@ namespace Oefenplatform.MVC.Controllers
         }
         public IActionResult Index()
         {
-            try
-            {
-                string id = _user.GetUserId(User);
-                var userCategory = _schoolUserCategoryRepository.GetById(1).Result;
-                var user = _schoolUserRepository.GetByIdentityReference(id).Result;
-                if (user.SchoolUserCategory.Category == userCategory.Category)
-                {
-                    return RedirectToAction("Index", "Home", new { Area = "Admin" });
-                }
-                return View();
-            }
-            catch
-            {
 
-                return View();
-
+            string id = _user.GetUserId(User);
+            var userCategory = _schoolUserCategoryRepository.GetById(1).Result;
+            var user = _schoolUserRepository.GetByIdentityReference(id).Result;
+            if (user.SchoolUserCategory.Category == userCategory.Category)
+            {
+                return RedirectToAction("Index", "Home", new { Area = "Admin" });
             }
+            return View();
 
         }
 
         public IActionResult IsAdmin()
         {
-            
 
-            
+
+
             return new RedirectToActionResult("Index", "Home", false);
         }
 
