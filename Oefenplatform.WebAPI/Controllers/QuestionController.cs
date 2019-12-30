@@ -13,9 +13,11 @@ namespace Oefenplatform.WebAPI.Controllers
     public class QuestionController : ControllerCrudBase<Question, QuestionRepository>
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-        public QuestionController(QuestionRepository questionRepository, IHostingEnvironment hostingEnvironment) : base(questionRepository)
+        private readonly AnswerRepository _answerRepo;
+        public QuestionController(QuestionRepository questionRepository, AnswerRepository answerRepository, IHostingEnvironment hostingEnvironment) : base(questionRepository)
         {
             _hostingEnvironment = hostingEnvironment;
+            _answerRepo = answerRepository;
         }
 
         [HttpGet]

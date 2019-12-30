@@ -16,9 +16,9 @@ namespace Oefenplatform.Lib.Models
         [Required(ErrorMessage = "Gelieve een klas in te geven.")]
         public ClassGroup ClassGroup { get; set; }
         public string AvatarURL { get; set; }
-        [Required(ErrorMessage = "Gelieve een wachtwoord in te geven.")]
+        //[Required(ErrorMessage = "Gelieve een wachtwoord in te geven.")]
         //public string Password { get; set; }
-        //[Required(ErrorMessage = "Gelieve de soort gebruiker mee te geven.")]
+        [Required(ErrorMessage = "Gelieve de soort gebruiker mee te geven.")]
         public SchoolUserCategory SchoolUserCategory { get; set; }
         public string IdentityReference { get; set; }
     }

@@ -15,6 +15,7 @@ namespace Oefenplatform.Lib.Models
         public string Description { get; set; }
         //public CourseCategory CourseCategory { get; set; }
         public int? StartNumber { get; set; }
+        [Required(ErrorMessage = "Gelieve de feedback voor de vraag in te geven.")]
         public ICollection<Feedback> Feedback { get; set; }
         [Required(ErrorMessage = "Gelieve het antwoord in te geven.")]
         public Answer Answer { get; set; }

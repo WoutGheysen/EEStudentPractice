@@ -30,19 +30,31 @@ namespace Oefenplatform.MVC.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                string id = _user.GetUserId(User);
+                var userCategory = _schoolUserCategoryRepository.GetById(1).Result;
+                var user = _schoolUserRepository.GetByIdentityReference(id).Result;
+                if (user.SchoolUserCategory.Category == userCategory.Category)
+                {
+                    return RedirectToAction("Index", "Home", new { Area = "Admin" });
+                }
+                return View();
+            }
+            catch
+            {
+
+                return View();
+
+            }
+
         }
 
         public IActionResult IsAdmin()
         {
-            string id = _user.GetUserId(User);
+            
 
-            var userCategory = _schoolUserCategoryRepository.GetById(1).Result;
-            var user = _schoolUserRepository.GetByIdentityReference(id).Result;
-            if (user.SchoolUserCategory.Category == userCategory.Category)
-            {
-                return View();
-            }
+            
             return new RedirectToActionResult("Index", "Home", false);
         }
 
