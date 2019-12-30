@@ -1,8 +1,12 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
-<button>Register user</button>
+	<form class="form-inline" asp-area="Identity" asp-page="/Account/Register"
+		  asp-route-returnUrl="@Url.Page("/", new { area = "" })"
+		  method="get">
+		<button type="submit">Register</button>
+	</form>
+

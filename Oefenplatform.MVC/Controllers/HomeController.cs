@@ -42,14 +42,6 @@ namespace Oefenplatform.MVC.Controllers
 
         }
 
-        public IActionResult IsAdmin()
-        {
-
-
-
-            return new RedirectToActionResult("Index", "Home", false);
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
