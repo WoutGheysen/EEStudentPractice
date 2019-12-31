@@ -160,7 +160,7 @@ namespace Oefenplatform.WebAPI.Controllers
             Answer aa = qq.Answer;
             if (aa != null)
             {
-                aa = await _aRepo.AddOrUpdate(aa);
+                aa = await _aRepo.Add(aa);
                 qq.AnswerId = aa.Id;
                 qq.Answer = null;
             }
