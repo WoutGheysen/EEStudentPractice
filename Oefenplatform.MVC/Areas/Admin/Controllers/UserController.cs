@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Oefenplatform.Lib.Models;
 using Oefenplatform.MVC.Areas.Admin.Models;
+using Oefenplatform.MVC.Services;
 using Oefenplatform.WebAPI.Repositories;
 
 namespace Oefenplatform.MVC.Areas.Admin.Controllers
@@ -16,6 +17,8 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
     [Authorize]
     public class UserController : Controller
     {
+        string baseUri = "https://localhost:5001/api";
+
         private readonly UserManager<IdentityUser> _user;
         private readonly SchoolUserRepository _schoolUserRepository;
         private readonly SchoolUserCategoryRepository _schoolUserCategoryRepository;
@@ -25,7 +28,6 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
             UserManager<IdentityUser> user, SchoolUserRepository schoolUserRepository,
             SchoolUserCategoryRepository schoolUserCategoryRepository, ClassGroupRepository classGroupRepository)
         {
-
             _user = user;
             _schoolUserRepository = schoolUserRepository;
             _schoolUserCategoryRepository = schoolUserCategoryRepository;
@@ -34,15 +36,26 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
 
         public IActionResult Index(Guid id)
         {
+            string fullLink = $"{baseUri}/User";
+
             string loggedUserid = _user.GetUserId(User);
+
+            string getCategoryByIdLink = fullLink + "/" + 1;
+            //var userCategory = WebApiService.GetApiResult<SchoolUserCategory>(getCategoryByIdLink);
             var userCategory = _schoolUserCategoryRepository.GetById(1).Result;
+
+            string userByIdentityReference = fullLink + "/" + "GetByIdentityReference" + "/" + loggedUserid;
+            //var user = WebApiService.GetApiResult<SchoolUser>(userByIdentityReference);
             var user = _schoolUserRepository.GetByIdentityReference(loggedUserid).Result;
+
             if (user.SchoolUserCategory.Category != userCategory.Category)
             {
                 return RedirectToAction("Index", "Home", new { Area = "" });
             }
 
+            string userById = fullLink + "/" + id;
             SchoolUser schoolUser = _schoolUserRepository.GetById(id).Result;
+            //var schoolUser = WebApiService.GetApiResult<SchoolUser>(userById);
 
             UserDetailViewModel userDetailViewModel = new UserDetailViewModel
             {

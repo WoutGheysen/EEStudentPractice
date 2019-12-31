@@ -11,6 +11,8 @@
 	<button type="submit">Maak nieuwe gebruiker aan.</button>
 </form>
 
+<a asp-area="Admin" asp-controller="Classgroup" asp-action="Index">Klasgroepen bekijken</a>
+
 @foreach (var classGroup in Model.ClassGroups)
 {
 	<h2>@classGroup.ClassGroupName</h2>

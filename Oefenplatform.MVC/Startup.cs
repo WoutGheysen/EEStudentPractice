@@ -43,6 +43,7 @@ namespace Oefenplatform.MVC
             services.AddScoped<SchoolUserController>();
             services.AddScoped<SchoolUserCategoryRepository>();
             services.AddScoped<ClassGroupRepository>();
+            services.AddScoped<YearGradeRepository>();
             services.AddScoped<SchoolUserRepository>();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
