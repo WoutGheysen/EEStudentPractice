@@ -81,6 +81,23 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
             return View(editUserViewModel);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditUserViewModel editUserViewModel)
+        {
+            SchoolUser schoolUser = _schoolUserRepository.GetById(editUserViewModel.Id).Result;
+            schoolUser.FirstName = editUserViewModel.FirstName;
+            schoolUser.LastName = editUserViewModel.LastName;
+
+            SchoolUserCategory schoolUserCategory = _schoolUserCategoryRepository.GetById(editUserViewModel.SelectedSchoolUserCategoryId).Result;
+            ClassGroup classGroup = _classGroupRepository.GetById(editUserViewModel.SelectedClassGroupId).Result;
+            schoolUser.ClassGroup = classGroup;
+            schoolUser.SchoolUserCategory = schoolUserCategory;
+
+            await _schoolUserRepository.Update(schoolUser);
+
+            return new RedirectToActionResult("Index", "User", new { id = editUserViewModel.Id });
+        }
+
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(Guid id)
         {
