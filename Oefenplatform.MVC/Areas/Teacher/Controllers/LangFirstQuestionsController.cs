@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Oefenplatform.Lib.DTO.QuestionDto;
 using Oefenplatform.Lib.Models;
@@ -18,7 +21,12 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
     {
         
         string baseUri = "https://localhost:5001/api";
+        private readonly ImageServices _imageServices;
 
+        public LangFirstQuestionsController(ImageServices imageServices)
+        {
+            _imageServices = imageServices;
+        }
         public IActionResult Index()
         {
             string fullLink = $"{baseUri}/Question/LangFirstGradeQuestions";
@@ -40,7 +48,7 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(LangFirstQuestionDetailVm viewModel)
+        public async Task<IActionResult> Save(LangFirstQuestionDetailVm viewModel, IFormFile picture)
         {
             if (viewModel.Id != 0)
             {
@@ -48,6 +56,13 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
             }
             else
             {
+                //string fileLocation = "";
+                //if (picture != null)
+                //{
+                //    fileLocation = Path.Combine(_hostingEnvironment.WebRootPath, "images/LangFirstQuestions/", Path.GetFileName(picture.FileName));
+                //    picture.CopyTo(new FileStream(fileLocation, FileMode.Create));
+                //}
+
                 var categoryLink = $"{baseUri}/QuestionCategory/{2}";
                 var category = WebApiService.GetApiResult<QuestionCategory>(categoryLink);
 
@@ -66,12 +81,14 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
                 var question = new Question()
                 {
                     QuestionTitle = viewModel.QuestionTitle,
-                    FileName = viewModel.FileName,
+                    FileName = _imageServices.UploadImage(picture, "images/LangFirstQuestions"),
                     Answer = seededAnswer,
                     QuestionCategory = category,
                     Feedback = feedbackList
                 };
                 await WebApiService.PostCallApi<Question, Question>(questionLink, question);
+
+                
                 return RedirectToAction(nameof(Index));
             }
             return null;

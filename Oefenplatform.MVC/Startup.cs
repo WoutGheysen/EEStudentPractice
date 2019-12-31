@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Oefenplatform.WebAPI.Data;
 using Oefenplatform.WebAPI.Controllers;
 using Oefenplatform.WebAPI.Repositories;
+using Oefenplatform.MVC.Services;
 
 namespace Oefenplatform.MVC
 {
@@ -45,6 +46,7 @@ namespace Oefenplatform.MVC
             services.AddScoped<SchoolUserCategoryRepository>();
             services.AddScoped<ClassGroupRepository>();
             services.AddScoped<SchoolUserRepository>();
+            services.AddScoped<ImageServices>();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
