@@ -15,15 +15,15 @@ namespace Oefenplatform.WebAPI.Controllers
     public class QuestionController : ControllerCrudBase<Question, QuestionRepository>
     {
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly QuestionCategoryRepository _qtRepo;
-        private readonly AnswerRepository _aRepo;
-        private readonly FeedbackRepository _fRepo;
-        public QuestionController(QuestionRepository questionRepository, QuestionCategoryRepository qtRepo, AnswerRepository aRepo, FeedbackRepository fRepo, IHostingEnvironment hostingEnvironment) : base(questionRepository)
+        private readonly QuestionCategoryRepository _questionCategoryRepo;
+        private readonly AnswerRepository _answerRepo;
+        private readonly FeedbackRepository _feedBackRepo;
+        public QuestionController(QuestionRepository questionRepository, QuestionCategoryRepository qcRepo, AnswerRepository aRepo, FeedbackRepository fRepo, IHostingEnvironment hostingEnvironment) : base(questionRepository)
         {
             _hostingEnvironment = hostingEnvironment;
-            _qtRepo = qtRepo;
-            _aRepo = aRepo;
-            _fRepo = fRepo;
+            _questionCategoryRepo = qcRepo;
+            _answerRepo = aRepo;
+            _feedBackRepo = fRepo;
         }
 
         [HttpGet]
@@ -64,12 +64,12 @@ namespace Oefenplatform.WebAPI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var category = await _qtRepo.GetById(fullQuestion.QuestionCategory);
+                var category = await _questionCategoryRepo.GetById(fullQuestion.QuestionCategory);
                 var answer = new Answer()
                 {
                     LangAnswer = fullQuestion.Answer
                 };
-                await _aRepo.Add(answer);
+                await _answerRepo.Add(answer);
 
                 var question = new Question()
                 {
@@ -87,7 +87,7 @@ namespace Oefenplatform.WebAPI.Controllers
                         Description = item.Description,
                         Question = question
                     };
-                    await _fRepo.Add(feedback);
+                    await _feedBackRepo.Add(feedback);
                 }
                 return Ok();
             }
@@ -150,50 +150,50 @@ namespace Oefenplatform.WebAPI.Controllers
 
         
         [HttpPost]
-        public override async Task<IActionResult> Post([FromBody]  Question qq)
+        public override async Task<IActionResult> Post([FromBody]  Question question)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
            
-            Answer aa = qq.Answer;
-            if (aa != null)
+            Answer answer = question.Answer;
+            if (answer != null)
             {
-                aa = await _aRepo.Add(aa);
-                qq.AnswerId = aa.Id;
-                qq.Answer = null;
+                answer = await _answerRepo.Add(answer);
+                question.AnswerId = answer.Id;
+                question.Answer = null;
             }
 
-            QuestionCategory qc = qq.QuestionCategory;
-            if (qc != null)
+            QuestionCategory questionCategory = question.QuestionCategory;
+            if (questionCategory != null)
             {
-                qc = await _qtRepo.AddOrUpdate(qc);
-                qq.QuestionCategoryId = qc.Id;
-                qq.QuestionCategory = null;
+                questionCategory = await _questionCategoryRepo.AddOrUpdate(questionCategory);
+                question.QuestionCategoryId = questionCategory.Id;
+                question.QuestionCategory = null;
             };
 
-            ICollection<Feedback> fb = qq.Feedback;
-            qq.Feedback = null;
+            ICollection<Feedback> feedbackCollection = question.Feedback;
+            question.Feedback = null;
 
-            Question createdEntity = await _repository.AddOrUpdate(qq);
+            Question createdEntity = await _repository.AddOrUpdate(question);
 
             if (createdEntity == null)
             {   
                 return NotFound();
             }
             
-            if (fb != null)
+            if (feedbackCollection != null)
             {
-                foreach (Feedback item in fb)
+                foreach (Feedback item in feedbackCollection)
                 {
                     item.QuestionId = createdEntity.Id;
                 }
 
-                fb = await _fRepo.AddOrUpdateCollection(fb);
+                feedbackCollection = await _feedBackRepo.AddOrUpdateCollection(feedbackCollection);
             }
 
-            qq.Feedback = fb;
+            question.Feedback = feedbackCollection;
 
             return CreatedAtAction(nameof(Get), new { id = createdEntity.Id }, createdEntity);
         }
