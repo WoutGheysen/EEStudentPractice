@@ -77,6 +77,7 @@ namespace Oefenplatform.WebAPI.Repositories
             return await GetAll()
                .Include(q => q.Answer)
                .Include(q => q.QuestionCategory)
+               .Include(q => q.Feedback)
                .ToListAsync();
         }
 
