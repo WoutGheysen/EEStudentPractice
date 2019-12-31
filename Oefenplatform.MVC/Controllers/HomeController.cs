@@ -33,6 +33,11 @@ namespace Oefenplatform.MVC.Controllers
             return View();
         }
 
+        public ActionResult IndexVue()
+        {
+            return View();
+        }
+
         public IActionResult IsAdmin()
         {
             string id = _user.GetUserId(User);
