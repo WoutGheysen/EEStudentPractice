@@ -57,48 +57,22 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
                     LangAnswer = viewModel.Answer
                 };
                 var seededAnswer = await WebApiService.PostCallApi<Answer, Answer>(answerLink, answer);
+                seededAnswer.Id = 0;
 
+                List<Feedback> feedbackList = new List<Feedback>();
+                feedbackList.Add(new Feedback() { Description = viewModel.FirstFeedback });
+                feedbackList.Add(new Feedback() { Description = viewModel.SecondFeedback });
                 var questionLink = $"{baseUri}/Question";
                 var question = new Question()
                 {
                     QuestionTitle = viewModel.QuestionTitle,
                     FileName = viewModel.FileName,
                     Answer = seededAnswer,
-                    QuestionCategory = category
+                    QuestionCategory = category,
+                    Feedback = feedbackList
                 };
-                var seededQuestion = await WebApiService.PostCallApi<Question, Question>(questionLink, question);
-
-                var feedbackLink = $"{baseUri}/Feedback";
-                var firstFeedback = new Feedback()
-                {
-                    Description = viewModel.FirstFeedback,
-                    Question = question
-                };
-                await WebApiService.PostCallApi<Feedback, Feedback>(feedbackLink, firstFeedback);
-
-                var secondFeedback = new Feedback()
-                {
-                    Description = viewModel.SecondFeedback,
-                    Question = question
-                };
-                await WebApiService.PostCallApi<Feedback, Feedback>(feedbackLink, secondFeedback);
-
+                await WebApiService.PostCallApi<Question, Question>(questionLink, question);
                 return RedirectToAction(nameof(Index));
-
-                //List<Feedback> testList = new List<Feedback>();
-                //testList.Add(new Feedback() { Description = viewModel.FirstFeedback });
-                //testList.Add(new Feedback() { Description = viewModel.SecondFeedback });
-                //var dto = new LangFirstGradeQuestionDto() 
-                //{
-                //    QuestionTitle = viewModel.QuestionTitle,
-                //    FileName = viewModel.FileName,
-                //    Answer = viewModel.Answer,
-                //    Feedback = testList,
-
-                //};
-                ////return null;
-                ////throw new NotImplementedException();
-                //await WebApiService.PostCallApi<Question, Question>(fullLink, dto);
             }
             return null;
         }
