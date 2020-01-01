@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oefenplatform.Lib.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,9 @@ namespace Oefenplatform.MVC.Areas.Teacher.Models.LangQuestions
 {
     public class LangQuestionsDetailVm
     {
+        public int QuestionCategoryId { get; set; }
+        public string QuestionCategory { get; set; }
+        public IEnumerable<QuestionCategory> AvailableCategories { get; set; }
         public int Id { get; set; }
         public string QuestionTitle { get; set; }
         public string Description { get; set; }
