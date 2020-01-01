@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,9 +42,30 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
             return View(viewModel);
         }
 
+        public IActionResult Update(int id)
+        {
+            var questionLink = $"{baseUri}/Question/{id}";
+            var question = WebApiService.GetApiResult<Question>(questionLink);
+
+            ViewBag.Mode = "Edit";
+            var viewModel = new LangFirstQuestionDetailVm()
+            {
+                Id = question.Id,
+                QuestionTitle = question.QuestionTitle,
+                FileName = question.FileName,
+                AnswerId =  question.Answer.Id,
+                Answer = question.Answer.LangAnswer,
+                FirstFeedbackId = question.Feedback.OfType<Feedback>().ElementAt(0).Id,
+                FirstFeedback = question.Feedback.OfType<Feedback>().ElementAt(0).Description,
+                SecondFeedbackId = question.Feedback.OfType<Feedback>().ElementAt(1).Id,
+                SecondFeedback = question.Feedback.OfType<Feedback>().ElementAt(1).Description
+            };
+            return View("Detail", viewModel);
+        }
+
         public IActionResult Create()
         {
-            ViewBag.Mode = "Edit";
+            ViewBag.Mode = "Create";
             return View("Detail");
         }
 
@@ -52,17 +74,41 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
         {
             if (viewModel.Id != 0)
             {
+                var categoryLink = $"{baseUri}/QuestionCategory/{2}";
+                var category = WebApiService.GetApiResult<QuestionCategory>(categoryLink);
+
+                var answerLink = $"{baseUri}/Answer/{viewModel.AnswerId}";
+                var answer = new Answer()
+                {
+                    Id = viewModel.AnswerId,
+                    LangAnswer = viewModel.Answer
+                };
+                answer = await WebApiService.PutCallApi<Answer, Answer>(answerLink, answer);
+
+                List<Feedback> feedbackList = new List<Feedback>();
+                feedbackList.Add(new Feedback() { Id = viewModel.FirstFeedbackId, Description = viewModel.FirstFeedback, QuestionId = viewModel.Id });
+                feedbackList.Add(new Feedback() { Id = viewModel.SecondFeedbackId, Description = viewModel.SecondFeedback, QuestionId = viewModel.Id });
+                var questionLink = $"{baseUri}/Question/{viewModel.Id}";
+                var question = new Question()
+                {
+                    Id = viewModel.Id,
+                    QuestionTitle = viewModel.QuestionTitle,
+                    FileName = _imageServices.UploadImage(picture, "images/LangFirstQuestions"),
+                    AnswerId = answer.Id,
+                    Answer = answer,
+                    QuestionCategory = category,
+                    QuestionCategoryId = category.Id,
+                    Feedback = feedbackList
+                };
+                question = await WebApiService.PutCallApi<Question, Question>(questionLink, question);
+                var feedbackLink = $"{baseUri}/Feedback";
+                await WebApiService.PutCallApi<Feedback, Feedback>($"{feedbackLink}/{viewModel.FirstFeedbackId}", feedbackList.ElementAt(0));
+                await WebApiService.PutCallApi<Feedback, Feedback>($"{feedbackLink}/{viewModel.SecondFeedbackId}", feedbackList.ElementAt(1));
+                return RedirectToAction(nameof(Index));
 
             }
             else
             {
-                //string fileLocation = "";
-                //if (picture != null)
-                //{
-                //    fileLocation = Path.Combine(_hostingEnvironment.WebRootPath, "images/LangFirstQuestions/", Path.GetFileName(picture.FileName));
-                //    picture.CopyTo(new FileStream(fileLocation, FileMode.Create));
-                //}
-
                 var categoryLink = $"{baseUri}/QuestionCategory/{2}";
                 var category = WebApiService.GetApiResult<QuestionCategory>(categoryLink);
 
@@ -71,8 +117,8 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
                 {
                     LangAnswer = viewModel.Answer
                 };
-                var seededAnswer = await WebApiService.PostCallApi<Answer, Answer>(answerLink, answer);
-                seededAnswer.Id = 0;
+                //var seededAnswer = await WebApiService.PostCallApi<Answer, Answer>(answerLink, answer);
+                answer.Id = 0;
 
                 List<Feedback> feedbackList = new List<Feedback>();
                 feedbackList.Add(new Feedback() { Description = viewModel.FirstFeedback });
@@ -82,7 +128,7 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
                 {
                     QuestionTitle = viewModel.QuestionTitle,
                     FileName = _imageServices.UploadImage(picture, "images/LangFirstQuestions"),
-                    Answer = seededAnswer,
+                    Answer = answer,
                     QuestionCategory = category,
                     Feedback = feedbackList
                 };
@@ -91,7 +137,6 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
                 
                 return RedirectToAction(nameof(Index));
             }
-            return null;
         }
     }
 }

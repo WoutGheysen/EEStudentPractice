@@ -9,20 +9,45 @@
 
 <h4>Maak een nieuwe Vraag</h4>
 <hr />
-@if (ViewBag.Mode == "Edit")
+@if (ViewBag.Mode == "Edit" || ViewBag.Mode == "Create")
 {
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Save" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="QuestionTitle" class="control-label">Titel van de Vraag</label>
                     <input asp-for="QuestionTitle" class="form-control" />
                     <span asp-validation-for="QuestionTitle" class="text-danger"></span>
                 </div>
+                @*@if (ViewBag.Mode == "Create")
+                {
                 <div class="form-group">
                     <label>Afbeelding Opladen</label>
                     <input type="file" name="picture" />
+                </div>
+                }*@
+                @if (ViewBag.Mode == "Edit")
+                {
+                <div class="form-group">
+                    <label asp-for="FileName" class="control-label">Afbeelding Naam</label>
+                    <input asp-for="FileName" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="FileName" class="text-danger"></span>
+                </div>
+                }
+                <div class="form-group">
+                    <label>Afbeelding Opladen</label>
+                    <input type="file" name="picture" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="AnswerId" class="control-label"></label>
+                    <input asp-for="AnswerId" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="AnswerId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Answer" class="control-label">Antwoord</label>
@@ -30,9 +55,19 @@
                     <span asp-validation-for="Answer" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="FirstFeedbackId" class="control-label"></label>
+                    <input asp-for="FirstFeedbackId" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="FirstFeedbackId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="FirstFeedback" class="control-label">Eerste Respons</label>
                     <input asp-for="FirstFeedback" class="form-control" />
                     <span asp-validation-for="FirstFeedback" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SecondFeedbackId" class="control-label"></label>
+                    <input asp-for="SecondFeedbackId" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="SecondFeedbackId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="SecondFeedback" class="control-label">Tweede Respons</label>
