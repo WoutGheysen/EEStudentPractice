@@ -80,10 +80,19 @@ namespace Oefenplatform.WebAPI.Repositories
                .ToListAsync();
         }
 
+        public async Task<Question> GetIdInclusive(int id)
+        {
+            return await _oefenplatformContext.Questions
+                .Where(q => q.Id == id)
+                .Include(a => a.Answer)
+                .Include(f => f.Feedback)
+                .Include(qc => qc.QuestionCategory)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<Question> UpdateAllInclusive(Question question)
         {
             var questionAnswer = question.Answer;
-
             _oefenplatformContext.Entry(questionAnswer).State = EntityState.Modified;
             _oefenplatformContext.Entry(question).State = EntityState.Modified;
             try

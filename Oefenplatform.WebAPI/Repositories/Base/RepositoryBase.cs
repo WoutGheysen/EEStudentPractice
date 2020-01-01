@@ -3,6 +3,7 @@ using Oefenplatform.Lib.Models;
 using Oefenplatform.WebAPI.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -109,8 +110,8 @@ namespace Oefenplatform.WebAPI.Repositories.Base
                 await _oefenplatformContext.SaveChangesAsync();
             }
             catch (Exception ex)
-            { 
-                return null;
+            {
+                Debug.WriteLine(ex.Message);
             }
             return entity;
         }
