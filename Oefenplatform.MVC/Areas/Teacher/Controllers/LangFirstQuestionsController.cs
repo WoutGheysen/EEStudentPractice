@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Oefenplatform.Lib.DTO.QuestionDto;
 using Oefenplatform.Lib.Models;
 using Oefenplatform.MVC.Areas.Teacher.Models.LangFirstQuestions;
 using Oefenplatform.MVC.Services;
-using Oefenplatform.WebAPI.Constants;
-using Oefenplatform.WebAPI.Controllers;
-using Oefenplatform.WebAPI.Data;
 
 namespace Oefenplatform.MVC.Areas.Teacher.Controllers
 {
@@ -42,12 +35,33 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Update(int id)
+        public IActionResult Detail(int id)
         {
+            ViewBag.Mode = "Detail";
             var questionLink = $"{baseUri}/Question/{id}";
             var question = WebApiService.GetApiResult<Question>(questionLink);
 
+            var viewModel = new LangFirstQuestionDetailVm()
+            {
+                Id = question.Id,
+                QuestionTitle = question.QuestionTitle,
+                FileName = question.FileName,
+                AnswerId = question.Answer.Id,
+                Answer = question.Answer.LangAnswer,
+                FirstFeedbackId = question.Feedback.OfType<Feedback>().ElementAt(0).Id,
+                FirstFeedback = question.Feedback.OfType<Feedback>().ElementAt(0).Description,
+                SecondFeedbackId = question.Feedback.OfType<Feedback>().ElementAt(1).Id,
+                SecondFeedback = question.Feedback.OfType<Feedback>().ElementAt(1).Description
+            };
+            return View("Detail", viewModel);
+        }
+
+        public IActionResult Update(int id)
+        {
             ViewBag.Mode = "Edit";
+            var questionLink = $"{baseUri}/Question/{id}";
+            var question = WebApiService.GetApiResult<Question>(questionLink);
+
             var viewModel = new LangFirstQuestionDetailVm()
             {
                 Id = question.Id,
@@ -137,6 +151,19 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
                 
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var questionLink = $"{baseUri}/Question/{id}";
+            var question = WebApiService.GetApiResult<Question>(questionLink);
+            var answerId = question.Answer.Id;
+            var deletedQuestion = WebApiService.DeleteCallApi<Question>(questionLink);
+
+            var answerLink = $"{baseUri}/Answer/{answerId}";
+            var deletedAnswer = WebApiService.DeleteCallApi<Answer>(answerLink);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

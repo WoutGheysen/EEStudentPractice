@@ -26,19 +26,19 @@
                     <span asp-validation-for="QuestionTitle" class="text-danger"></span>
                 </div>
                 @*@if (ViewBag.Mode == "Create")
-                {
-                <div class="form-group">
-                    <label>Afbeelding Opladen</label>
-                    <input type="file" name="picture" />
-                </div>
-                }*@
+                    {
+                    <div class="form-group">
+                        <label>Afbeelding Opladen</label>
+                        <input type="file" name="picture" />
+                    </div>
+                    }*@
                 @if (ViewBag.Mode == "Edit")
                 {
-                <div class="form-group">
-                    <label asp-for="FileName" class="control-label">Afbeelding Naam</label>
-                    <input asp-for="FileName" class="form-control" readonly="readonly" />
-                    <span asp-validation-for="FileName" class="text-danger"></span>
-                </div>
+                    <div class="form-group">
+                        <label asp-for="FileName" class="control-label">Afbeelding Naam</label>
+                        <input asp-for="FileName" class="form-control" readonly="readonly" />
+                        <span asp-validation-for="FileName" class="text-danger"></span>
+                    </div>
                 }
                 <div class="form-group">
                     <label>Afbeelding Opladen</label>
@@ -75,7 +75,7 @@
                     <span asp-validation-for="SecondFeedback" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" value="Save" class="btn-success">Save</button>
+                    <button type="submit" value="Save" class="btn-success">Opslaan</button>
                 </div>
             </form>
         </div>
@@ -83,6 +83,22 @@
 
     <div>
         <a asp-action="Index">Back to List</a>
+    </div>
+}
+@if (ViewBag.Mode == "Detail")
+{
+    <div class="panel-body">
+        <ul>
+            <li>@Model.Id</li>
+            <li>@Model.QuestionTitle</li>
+            <li>@Model.FileName</li>
+            <li>@Model.Answer</li>
+            <li>@Model.FirstFeedback</li>
+            <li>@Model.SecondFeedback</li>
+        </ul>
+        <img src="@Model.FileName"/>
+        <a class="btn btn-warning" asp-action="Update" asp-route-id="@Model.Id">Aanpassen</a>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Verwijderen</a>
     </div>
 }
 
