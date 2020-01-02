@@ -308,7 +308,7 @@ namespace Oefenplatform.WebAPI.Data
                 {
                     Id = 21,
                     QuestionTitle = "3 x 7 = ",
-                    StartNumber = 3,
+                    StartNumber = 7,
                     QuestionCategoryId = 3,
                     AnswerId = 21,
                     Attempts = 0,
@@ -316,61 +316,7 @@ namespace Oefenplatform.WebAPI.Data
                 }
                 );
 
-            modelBuilder.Entity<Question>()
-                .HasData(
-                new
-                {
-                    Id = 22,
-                    QuestionTitle = "3 x 3 = ",
-                    StartNumber = 3,
-                    QuestionCategoryId = 3,
-                    AnswerId = 22,
-                    Attempts = 0,
-                    AssessmentId = 3,
-                }
-                );
-
-            modelBuilder.Entity<Question>()
-                .HasData(
-                new
-                {
-                    Id = 23,
-                    QuestionTitle = "3 x 5 = ",
-                    StartNumber = 3,
-                    QuestionCategoryId = 3,
-                    AnswerId = 23,
-                    Attempts = 0,
-                    AssessmentId = 3,
-                }
-                );
-
-            modelBuilder.Entity<Question>()
-                .HasData(
-                new
-                {
-                    Id = 24,
-                    QuestionTitle = "3 x 9 = ",
-                    StartNumber = 3,
-                    QuestionCategoryId = 3,
-                    AnswerId = 24,
-                    Attempts = 0,
-                    AssessmentId = 3,
-                }
-                );
-
-            modelBuilder.Entity<Question>()
-                .HasData(
-                new
-                {
-                    Id = 25,
-                    QuestionTitle = "3 x 10 = ",
-                    StartNumber = 3,
-                    QuestionCategoryId = 3,
-                    AnswerId = 25,
-                    Attempts = 0,
-                    AssessmentId = 3,
-                }
-                );
+            
             #endregion
             #region Answers
             //Answers: Splitsoefeningen
@@ -601,6 +547,15 @@ namespace Oefenplatform.WebAPI.Data
                     MathAnswer = 30
                 }
                 );
+
+            modelBuilder.Entity<Answer>()
+                .HasData(
+                new
+                {
+                    Id = 26,
+                    MathAnswer = 1
+                }
+                );
             #endregion
             #region Assessments
             //Assessment: Splitsoefeningen
@@ -658,6 +613,8 @@ namespace Oefenplatform.WebAPI.Data
                     CourseCategoryId = 2,
                     YearGradeId = 3
                 });
+
+           
             #endregion
 
             #region Feedback
