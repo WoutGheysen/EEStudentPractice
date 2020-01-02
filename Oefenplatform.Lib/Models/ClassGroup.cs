@@ -11,9 +11,10 @@ namespace Oefenplatform.Lib.Models
     {
         [Required(ErrorMessage = "Gelieve een klasnaam in te geven.")]
         public string ClassGroupName { get; set; }
-        [Required(ErrorMessage = "Gelieve de graad in te geven.")]
+        //[Required(ErrorMessage = "Gelieve de graad in te geven.")]
         public YearGrade YearGrade { get; set; }
-        [Required(ErrorMessage = "Gelieve de klasleden in te geven.")]
+        //[Required(ErrorMessage = "Gelieve de klasleden in te geven.")]
+        public int YearGradeId { get; set; }
 
         [JsonIgnore]
         public ICollection<SchoolUser> SchoolUsers { get; set; }

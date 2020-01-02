@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Oefenplatform.Lib.Models;
 using Oefenplatform.MVC.Areas.Admin.Models;
+using Oefenplatform.MVC.Services;
 using Oefenplatform.WebAPI.Repositories;
 
 namespace Oefenplatform.MVC.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Authorize]
     public class ClassgroupController : Controller
     {
         string baseUri = "https://localhost:5001/api";
@@ -25,7 +29,9 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var classGroups = _classGroupRepository.GetAll().ToList();
+            string fullLink = $"{baseUri}/ClassGroup";
+
+            var classGroups = WebApiService.GetApiResult<ICollection<ClassGroup>>(fullLink);
 
             ClassGroupViewModel classGroupViewModel = new ClassGroupViewModel
             {
@@ -37,7 +43,9 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
 
         public IActionResult Add()
         {
-            var yearGrades = new SelectList(_yearGradeRepository.GetAll(), nameof(YearGrade.Id), nameof(YearGrade.Grade));
+            string fullLink = $"{baseUri}/YearGrade";
+
+            var yearGrades = new SelectList(WebApiService.GetApiResult<ICollection<YearGrade>>(fullLink), nameof(YearGrade.Id), nameof(YearGrade.Grade));
 
             ClassGroupDetailViewModel classGroupDetailViewModel = new ClassGroupDetailViewModel
             {
@@ -50,24 +58,32 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ClassGroupDetailViewModel classGroupDetailViewModel)
         {
-            YearGrade yearGrade = _yearGradeRepository.GetById(classGroupDetailViewModel.SelectedYearGradeId).Result;
+            string fullLink = $"{baseUri}/ClassGroup";
+            string yeargradeLink = $"{baseUri}/YearGrade/{classGroupDetailViewModel.SelectedYearGradeId}";
+
+            YearGrade yearGrade = WebApiService.GetApiResult<YearGrade>(yeargradeLink);
 
             ClassGroup classGroup = new ClassGroup
             {
                 ClassGroupName = classGroupDetailViewModel.ClassGroupName,
-                YearGrade = yearGrade,
+                YearGrade = null,
+                YearGradeId = yearGrade.Id
             };
 
-            await _classGroupRepository.Add(classGroup);
+            await WebApiService.PostCallApi<ClassGroup, ClassGroup>(fullLink, classGroup);
 
             return RedirectToAction("Index", "Classgroup");
         }
 
         public IActionResult Edit(int id)
         {
-            ClassGroup classGroup = _classGroupRepository.GetById(id).Result;
+            string fullLink = $"{baseUri}/ClassGroup";
 
-            var yearGrades = new SelectList(_yearGradeRepository.GetAll(), nameof(YearGrade.Id), nameof(YearGrade.Grade), classGroup.YearGrade.Id.ToString());
+            string classgroupById = fullLink + "/" + id;
+            ClassGroup classGroup = WebApiService.GetApiResult<ClassGroup>(classgroupById);
+
+            string yeargradeLink = $"{baseUri}/YearGrade";
+            var yearGrades = new SelectList(WebApiService.GetApiResult<ICollection<YearGrade>>(yeargradeLink), nameof(YearGrade.Id), nameof(YearGrade.Grade), classGroup.YearGrade.Id.ToString());
 
             ClassGroupDetailViewModel editClassGroupViewModel = new ClassGroupDetailViewModel
             {
@@ -83,23 +99,33 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ClassGroupDetailViewModel editClassGroupViewModel)
         {
-            ClassGroup classGroup = _classGroupRepository.GetById(editClassGroupViewModel.Id).Result;
+            string fullLink = $"{baseUri}/ClassGroup";
+
+            string classgroupById = fullLink + "/" + editClassGroupViewModel.Id;
+            ClassGroup classGroup = WebApiService.GetApiResult<ClassGroup>(classgroupById);
+
             classGroup.ClassGroupName = editClassGroupViewModel.ClassGroupName;
 
             classGroup.SchoolUsers = editClassGroupViewModel.SchoolUsers;
 
-            YearGrade yearGrade = _yearGradeRepository.GetById(editClassGroupViewModel.SelectedYearGradeId).Result;
-            classGroup.YearGrade = yearGrade;
+            string yeargradeLink = $"{baseUri}/YearGrade/{editClassGroupViewModel.SelectedYearGradeId}";
+            YearGrade yearGrade = WebApiService.GetApiResult<YearGrade>(yeargradeLink);
 
-            await _classGroupRepository.Update(classGroup);
+            classGroup.YearGrade = yearGrade;
+            classGroup.YearGradeId = yearGrade.Id;
+
+            string updateLink = $"{baseUri}/ClassGroup/{classGroup.Id}";
+            await WebApiService.PutCallApi<ClassGroup, ClassGroup>(updateLink, classGroup);
 
             return RedirectToAction("Index", "Classgroup");
         }
 
-        [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _classGroupRepository.Delete(id);
+            string fullLink = $"{baseUri}/ClassGroup";
+
+            string classgroupById = fullLink + "/" + id;
+            await WebApiService.DeleteCallApi<ClassGroup>(classgroupById);
 
             return RedirectToAction("Index", "Classgroup");
         }

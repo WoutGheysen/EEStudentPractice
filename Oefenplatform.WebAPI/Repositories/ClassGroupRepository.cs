@@ -1,4 +1,5 @@
-﻿using Oefenplatform.Lib.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Oefenplatform.Lib.Models;
 using Oefenplatform.WebAPI.Data;
 using Oefenplatform.WebAPI.Repositories.Base;
 using System;
@@ -13,6 +14,11 @@ namespace Oefenplatform.WebAPI.Repositories
         public ClassGroupRepository(OefenplatformContext oefenplatformContext) : base(oefenplatformContext)
         {
 
+        }
+
+        public override async Task<ClassGroup> GetById(int id)
+        {
+            return await _oefenplatformContext.Set<ClassGroup>().Include(u => u.YearGrade).Where(u => u.Id == id).FirstOrDefaultAsync();
         }
     }
 }

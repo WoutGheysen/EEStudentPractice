@@ -20,18 +20,11 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
         string baseUri = "https://localhost:5001/api";
 
         private readonly UserManager<IdentityUser> _user;
-        private readonly SchoolUserRepository _schoolUserRepository;
-        private readonly SchoolUserCategoryRepository _schoolUserCategoryRepository;
-        private readonly ClassGroupRepository _classGroupRepository;
 
         public UserController(
-            UserManager<IdentityUser> user, SchoolUserRepository schoolUserRepository,
-            SchoolUserCategoryRepository schoolUserCategoryRepository, ClassGroupRepository classGroupRepository)
+            UserManager<IdentityUser> user)
         {
             _user = user;
-            _schoolUserRepository = schoolUserRepository;
-            _schoolUserCategoryRepository = schoolUserCategoryRepository;
-            _classGroupRepository = classGroupRepository;
         }
 
         public IActionResult Index(Guid id)
@@ -118,14 +111,15 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
             var classGroup = WebApiService.GetApiResult<ClassGroup>(classgroupById);
 
             schoolUser.ClassGroup = classGroup;
+            schoolUser.ClassGroupId = classGroup.Id;
             schoolUser.SchoolUserCategory = schoolUserCategory;
+            schoolUser.SchoolUserCategoryId = schoolUserCategory.Id;
 
             await WebApiService.PutCallApi<SchoolUser, SchoolUser>(userById, schoolUser);
 
             return new RedirectToActionResult("Index", "User", new { id = editUserViewModel.Id });
         }
 
-        [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(Guid id)
         {
             string fullLink = $"{baseUri}/SchoolUser";

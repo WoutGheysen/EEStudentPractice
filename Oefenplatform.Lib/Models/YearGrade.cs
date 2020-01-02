@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +11,9 @@ namespace Oefenplatform.Lib.Models
     {
         [Required(ErrorMessage = "Gelieve de graad in te geven.")]
         public int Grade { get; set; }
+        [JsonIgnore]
         public ICollection<ClassGroup> ClassGroups { get; set; }
+        [JsonIgnore]
         public ICollection<Assessment> Assessments { get; set; }
     }
 }

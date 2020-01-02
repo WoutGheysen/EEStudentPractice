@@ -9,11 +9,7 @@
 <label>Categorie: @Model.SchoolUserCategory.Category</label><br />
 
 <a asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id">Wijzigen</a>
-
-<form asp-action="Delete">
-    <input type="hidden" asp-for="Id" />
-    <input type="submit" value="Verwijder" class="btn btn-danger" /> |
-    <a asp-controller="Home" asp-action="Index">Terug naar lijst</a>
-</form>
+<a class="btn btn-danger" asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id">Verwijderen</a>
+<a asp-controller="Home" asp-action="Index">Terug naar lijst</a>
 
 

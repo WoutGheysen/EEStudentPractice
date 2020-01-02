@@ -21,5 +21,8 @@ namespace Oefenplatform.Lib.Models
         [Required(ErrorMessage = "Gelieve de soort gebruiker mee te geven.")]
         public SchoolUserCategory SchoolUserCategory { get; set; }
         public string IdentityReference { get; set; }
+
+        public int ClassGroupId { get; set; }
+        public int SchoolUserCategoryId { get; set; }
     }
 }

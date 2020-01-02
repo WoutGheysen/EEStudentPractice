@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -49,6 +50,7 @@ namespace Oefenplatform.MVC.Services
                 else if (httpMethod == HttpMethod.Put)
                 {
                     response = await httpClient.PutAsJsonAsync(uri, entity);
+                    
                 }
                 else
                 {
