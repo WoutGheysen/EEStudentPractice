@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Oefenplatform.Lib.Models;
 using Oefenplatform.MVC.Models;
+using Oefenplatform.MVC.Services;
 using Oefenplatform.WebAPI.Repositories;
 
 namespace Oefenplatform.MVC.Controllers
@@ -14,6 +16,8 @@ namespace Oefenplatform.MVC.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        string baseUri = "https://localhost:5001/api";
+
         //private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _user;
         private readonly SchoolUserRepository _schoolUserRepository;
@@ -30,10 +34,17 @@ namespace Oefenplatform.MVC.Controllers
         }
         public IActionResult Index()
         {
+            string fullLink = $"{baseUri}/SchoolUser";
 
-            string id = _user.GetUserId(User);
-            var userCategory = _schoolUserCategoryRepository.GetById(1).Result;
-            var user = _schoolUserRepository.GetByIdentityReference(id).Result;
+            string loggedUserid = _user.GetUserId(User);
+
+            string categoryLink = $"{baseUri}/SchoolUserCategory";
+            string getCategoryByIdLink = categoryLink + "/" + 1;
+            var userCategory = WebApiService.GetApiResult<SchoolUserCategory>(getCategoryByIdLink);
+
+            string userByIdentityReference = $"{fullLink}/IdRef/{loggedUserid}";
+            var user = WebApiService.GetApiResult<SchoolUser>(userByIdentityReference);
+
             if (user.SchoolUserCategory.Category == userCategory.Category)
             {
                 return RedirectToAction("Index", "Home", new { Area = "Admin" });

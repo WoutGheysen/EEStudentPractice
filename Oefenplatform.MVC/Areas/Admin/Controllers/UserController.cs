@@ -36,17 +36,16 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
 
         public IActionResult Index(Guid id)
         {
-            string fullLink = $"{baseUri}/User";
+            string fullLink = $"{baseUri}/SchoolUser";
 
             string loggedUserid = _user.GetUserId(User);
 
-            string getCategoryByIdLink = fullLink + "/" + 1;
-            //var userCategory = WebApiService.GetApiResult<SchoolUserCategory>(getCategoryByIdLink);
-            var userCategory = _schoolUserCategoryRepository.GetById(1).Result;
+            string categoryLink = $"{baseUri}/SchoolUserCategory";
+            string getCategoryByIdLink = categoryLink + "/" + 1;
+            var userCategory = WebApiService.GetApiResult<SchoolUserCategory>(getCategoryByIdLink);
 
-            string userByIdentityReference = fullLink + "/" + "GetByIdentityReference" + "/" + loggedUserid;
-            //var user = WebApiService.GetApiResult<SchoolUser>(userByIdentityReference);
-            var user = _schoolUserRepository.GetByIdentityReference(loggedUserid).Result;
+            string userByIdentityReference = $"{fullLink}/IdRef/{loggedUserid}";
+            var user = WebApiService.GetApiResult<SchoolUser>(userByIdentityReference);
 
             if (user.SchoolUserCategory.Category != userCategory.Category)
             {
@@ -54,8 +53,7 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
             }
 
             string userById = fullLink + "/" + id;
-            SchoolUser schoolUser = _schoolUserRepository.GetById(id).Result;
-            //var schoolUser = WebApiService.GetApiResult<SchoolUser>(userById);
+            var schoolUser = WebApiService.GetApiResult<SchoolUser>(userById);
 
             UserDetailViewModel userDetailViewModel = new UserDetailViewModel
             {
@@ -74,9 +72,15 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
         
         public IActionResult Edit(Guid id)
         {
-            SchoolUser schoolUser = _schoolUserRepository.GetById(id).Result;
-            var classGroups = new SelectList(_classGroupRepository.GetAll(), nameof(ClassGroup.Id), nameof(ClassGroup.ClassGroupName), schoolUser.ClassGroup.Id.ToString());
-            var schoolUserCategories = new SelectList(_schoolUserCategoryRepository.GetAll(), nameof(SchoolUserCategory.Id), nameof(SchoolUserCategory.Category), schoolUser.SchoolUserCategory.Id.ToString());
+            string fullLink = $"{baseUri}/SchoolUser";
+            string categoryLink = $"{baseUri}/SchoolUserCategory";
+            string classgroupLink = $"{baseUri}/ClassGroup";
+
+            string userById = fullLink + "/" + id;
+            var schoolUser = WebApiService.GetApiResult<SchoolUser>(userById);
+
+            var classGroups = new SelectList(WebApiService.GetApiResult<ICollection<ClassGroup>>(classgroupLink), nameof(ClassGroup.Id), nameof(ClassGroup.ClassGroupName), schoolUser.ClassGroup.Id.ToString());
+            var schoolUserCategories = new SelectList(WebApiService.GetApiResult<ICollection<SchoolUserCategory>>(categoryLink), nameof(SchoolUserCategory.Id), nameof(SchoolUserCategory.Category), schoolUser.SchoolUserCategory.Id.ToString());
 
             EditUserViewModel editUserViewModel = new EditUserViewModel
             {
@@ -97,16 +101,26 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel editUserViewModel)
         {
-            SchoolUser schoolUser = _schoolUserRepository.GetById(editUserViewModel.Id).Result;
+            string fullLink = $"{baseUri}/SchoolUser";
+            string categoryLink = $"{baseUri}/SchoolUserCategory";
+            string classgroupLink = $"{baseUri}/ClassGroup";
+
+            string userById = fullLink + "/" + editUserViewModel.Id;
+            var schoolUser = WebApiService.GetApiResult<SchoolUser>(userById);
+
             schoolUser.FirstName = editUserViewModel.FirstName;
             schoolUser.LastName = editUserViewModel.LastName;
 
-            SchoolUserCategory schoolUserCategory = _schoolUserCategoryRepository.GetById(editUserViewModel.SelectedSchoolUserCategoryId).Result;
-            ClassGroup classGroup = _classGroupRepository.GetById(editUserViewModel.SelectedClassGroupId).Result;
+            string categoryById = categoryLink + "/" + editUserViewModel.SelectedSchoolUserCategoryId;
+            string classgroupById = classgroupLink + "/" + editUserViewModel.SelectedClassGroupId;
+
+            var schoolUserCategory = WebApiService.GetApiResult<SchoolUserCategory>(categoryById);
+            var classGroup = WebApiService.GetApiResult<ClassGroup>(classgroupById);
+
             schoolUser.ClassGroup = classGroup;
             schoolUser.SchoolUserCategory = schoolUserCategory;
 
-            await _schoolUserRepository.Update(schoolUser);
+            await WebApiService.PutCallApi<SchoolUser, SchoolUser>(userById, schoolUser);
 
             return new RedirectToActionResult("Index", "User", new { id = editUserViewModel.Id });
         }
@@ -114,13 +128,17 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var user = await _schoolUserRepository.GetById(id);
-            string identityId = user.IdentityReference;
+            string fullLink = $"{baseUri}/SchoolUser";
+
+            string userById = fullLink + "/" + id;
+            var schoolUser = WebApiService.GetApiResult<SchoolUser>(userById);
+
+            string identityId = schoolUser.IdentityReference;
 
             var identityUser = await _user.FindByIdAsync(identityId);
             
             await _user.DeleteAsync(identityUser);
-            await _schoolUserRepository.Delete(id);
+            await WebApiService.DeleteCallApi<SchoolUser>(userById);
 
             return RedirectToAction("Index", "Home");
         }
