@@ -1,4 +1,5 @@
-﻿using Oefenplatform.Lib.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Oefenplatform.Lib.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,5 @@ namespace Oefenplatform.MVC.Areas.Teacher.Models.AssessmentFirstLang
     public class AssessmentFirstLangCreateTestVm
     {
         public List<Question> Questions { get; set; }
-        public List<bool> IsSelected { get; set; }
     }
 }

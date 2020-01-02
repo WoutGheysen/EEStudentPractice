@@ -7,9 +7,7 @@
 
 <h1>CreateTest</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -25,22 +23,23 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Questions) 
-{
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuestionTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <label class="container">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Questions)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuestionTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @*<label class="container">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>*@
+                    @Html.DisplayFor(modelItem => item.IsSelected)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
