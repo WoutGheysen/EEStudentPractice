@@ -153,15 +153,13 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
             }
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var questionLink = $"{baseUri}/Question/{id}";
-            var question = WebApiService.GetApiResult<Question>(questionLink);
-            var answerId = question.Answer.Id;
-            var deletedQuestion = WebApiService.DeleteCallApi<Question>(questionLink);
+            var deletedQuestion = await WebApiService.DeleteCallApi<Question>(questionLink);
 
-            var answerLink = $"{baseUri}/Answer/{answerId}";
-            var deletedAnswer = WebApiService.DeleteCallApi<Answer>(answerLink);
+            var answerLink = $"{baseUri}/Answer/{deletedQuestion.AnswerId}";
+            var deletedAnswer = await WebApiService.DeleteCallApi<Answer>(answerLink);
 
             return RedirectToAction(nameof(Index));
         }
