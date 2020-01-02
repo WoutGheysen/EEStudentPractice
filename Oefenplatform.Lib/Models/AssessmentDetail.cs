@@ -6,6 +6,7 @@ namespace Oefenplatform.Lib.Models
 {
     public class AssessmentDetail : EntityBase<int>
     {
+        public string AssessmentTitle { get; set; }
         public ICollection<WrongAnswer> WrongAnswers { get; set; }
         public Assessment Assessment { get; set; }
         public ICollection<Question> Questions { get; set; }

@@ -63,5 +63,18 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
 
             return View();
         }
+
+        public IActionResult Save(AssessmentFirstLangCreateTestVm vm)
+        {
+            var questionToAdd = new List<Question>();
+            foreach (var question in vm.Questions)
+            {
+                if (question.IsAddedToTest)
+                {
+                    questionToAdd.Add(question);
+                }
+            }
+            return null ;
+        }
     }
 }

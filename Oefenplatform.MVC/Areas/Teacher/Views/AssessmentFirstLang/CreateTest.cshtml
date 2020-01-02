@@ -1,45 +1,48 @@
 ﻿@model Oefenplatform.MVC.Areas.Teacher.Models.AssessmentFirstLang.AssessmentFirstLangCreateTestVm
 
 @{
-    ViewData["Title"] = "CreateTest";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "CreateTest";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>CreateTest</h1>
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Questions)
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Selecteer Vraag
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Questions)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QuestionTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @*<label class="container">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>*@
-                    @Html.DisplayFor(modelItem => item.IsSelected)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<form asp-action="Save">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.Questions)
+				</th>
+				<th>
+					Description
+				</th>
+				<th>
+					Selecteer Vraag
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.Questions)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.QuestionTitle)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td>
+						@*<label class="container">
+								<input type="checkbox">
+								<span class="checkmark"></span>
+							</label>*@
+						@*@Html.DisplayFor(modelItem => item.IsAddedToTest)*@
+						@Html.CheckBox("IsAddedToTest")
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<button>Save</button>
+</form>

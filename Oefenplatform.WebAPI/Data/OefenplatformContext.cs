@@ -30,6 +30,7 @@ namespace Oefenplatform.WebAPI.Data
                     AnswerId = 1,
                     Attempts = 0,
                     AssessmentId = 1,
+                    IsAddedToTest = false,
                 }
                 );
 
@@ -43,6 +44,7 @@ namespace Oefenplatform.WebAPI.Data
                     StartNumber = 8,
                     AnswerId = 2,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 1,
                 }
                 );
@@ -57,6 +59,7 @@ namespace Oefenplatform.WebAPI.Data
                     StartNumber = 4,
                     AnswerId = 3,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 1,
                 }
                 );
@@ -71,6 +74,7 @@ namespace Oefenplatform.WebAPI.Data
                     StartNumber = 10,
                     AnswerId = 4,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 1,
                 }
                 );
@@ -85,6 +89,7 @@ namespace Oefenplatform.WebAPI.Data
                     StartNumber = 9,
                     AnswerId = 5,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 1,
                 }
                 );
@@ -100,6 +105,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 2,
                     AnswerId = 6,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 2,
                 }
                 );
@@ -114,6 +120,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 2,
                     AnswerId = 7,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 2,
                 }
                 );
@@ -128,6 +135,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 2,
                     AnswerId = 8,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 2,
                 }
                 );
@@ -142,6 +150,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 2,
                     AnswerId = 9,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 2,
                 }
                 );
@@ -156,6 +165,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 2,
                     AnswerId = 10,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 2,
                 }
                 );
@@ -170,6 +180,7 @@ namespace Oefenplatform.WebAPI.Data
                     Description = "De ... heeft een ei gelegd.",
                     QuestionCategoryId = 4,
                     AnswerId = 11,
+                    IsAddedToTest = false,
                     Attempts = 0,
                     AssessmentId = 4,
                 }
@@ -184,6 +195,7 @@ namespace Oefenplatform.WebAPI.Data
                     Description = "De boom staat in het ... .",
                     QuestionCategoryId = 4,
                     AnswerId = 12,
+                    IsAddedToTest = false,
                     Attempts = 0,
                     AssessmentId = 4,
                 }
@@ -199,6 +211,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 4,
                     AnswerId = 13,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 4,
                 }
                 );
@@ -212,6 +225,7 @@ namespace Oefenplatform.WebAPI.Data
                     Description = "De schat lag verborgen in de ... .",
                     QuestionCategoryId = 4,
                     AnswerId = 14,
+                    IsAddedToTest = false,
                     Attempts = 0,
                     AssessmentId = 4,
                 }
@@ -226,6 +240,7 @@ namespace Oefenplatform.WebAPI.Data
                     Description = "Hij stak de zee over op het ... .",
                     QuestionCategoryId = 4,
                     AnswerId = 15,
+                    IsAddedToTest = false,
                     Attempts = 0,
                     AssessmentId = 4,
                 }
@@ -242,6 +257,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 5,
                     AnswerId = 16,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 5,
                 }
                 );
@@ -255,6 +271,7 @@ namespace Oefenplatform.WebAPI.Data
                     Description = "Hij had een heel ... kat.",
                     QuestionCategoryId = 5,
                     AnswerId = 17,
+                    IsAddedToTest = false,
                     Attempts = 0,
                     AssessmentId = 5,
                 }
@@ -270,6 +287,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 5,
                     AnswerId = 18,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 5,
                 }
                 );
@@ -283,6 +301,7 @@ namespace Oefenplatform.WebAPI.Data
                     Description = "Dat was een erg ... citroen.",
                     QuestionCategoryId = 5,
                     AnswerId = 19,
+                    IsAddedToTest = false,
                     Attempts = 0,
                     AssessmentId = 5,
                 }
@@ -299,6 +318,7 @@ namespace Oefenplatform.WebAPI.Data
                     AnswerId = 20,
                     Attempts = 0,
                     AssessmentId = 5,
+                    IsAddedToTest = false,
                 }
                 );
 
@@ -312,6 +332,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 3,
                     AnswerId = 21,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 3,
                 }
                 );
@@ -325,6 +346,7 @@ namespace Oefenplatform.WebAPI.Data
                     StartNumber = 3,
                     QuestionCategoryId = 3,
                     AnswerId = 22,
+                    IsAddedToTest = false,
                     Attempts = 0,
                     AssessmentId = 3,
                 }
@@ -339,6 +361,7 @@ namespace Oefenplatform.WebAPI.Data
                     StartNumber = 3,
                     QuestionCategoryId = 3,
                     AnswerId = 23,
+                    IsAddedToTest = false,
                     Attempts = 0,
                     AssessmentId = 3,
                 }
@@ -354,6 +377,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 3,
                     AnswerId = 24,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 3,
                 }
                 );
@@ -368,6 +392,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 3,
                     AnswerId = 25,
                     Attempts = 0,
+                    IsAddedToTest = false,
                     AssessmentId = 3,
                 }
                 );
