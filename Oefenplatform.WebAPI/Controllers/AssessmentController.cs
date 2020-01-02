@@ -19,5 +19,12 @@ namespace Oefenplatform.WebAPI.Controllers
         {
 
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        public override async Task<IActionResult> Get(int id)
+        {
+            return Ok(await _repository.GetIdInclusive(id));
+        }
     }
 }
