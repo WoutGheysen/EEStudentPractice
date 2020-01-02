@@ -43,6 +43,9 @@ namespace Oefenplatform.MVC.Areas.Identity.Pages.Account
             _schoolUserController = schoolUserController;
             _classGroupRepository = classGroupRepository;
             _schoolUserCategoryRepository = schoolUserCategoryRepository;
+
+            ClassGroupOptions = new SelectList(_classGroupRepository.GetAll(), nameof(ClassGroup.Id), nameof(ClassGroup.ClassGroupName));
+            SchoolUserCategoryOptions = new SelectList(_schoolUserCategoryRepository.GetAll(), nameof(SchoolUserCategory.Id), nameof(SchoolUserCategory.Category));
         }
 
         [BindProperty]
@@ -58,8 +61,12 @@ namespace Oefenplatform.MVC.Areas.Identity.Pages.Account
             //public string Email { get; set; }
 
             [Required]
-            [Display(Name = "Name")]
-            public string Name { get; set; }
+            [Display(Name = "LastName")]
+            public string LastName { get; set; }
+
+            [Required]
+            [Display(Name = "FirstName")]
+            public string FirstName { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -90,9 +97,6 @@ namespace Oefenplatform.MVC.Areas.Identity.Pages.Account
         public void OnGet(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
-            ClassGroupOptions = new SelectList(_classGroupRepository.GetAll(), nameof(ClassGroup.Id), nameof(ClassGroup.ClassGroupName));
-            SchoolUserCategoryOptions = new SelectList(_schoolUserCategoryRepository.GetAll(), nameof(SchoolUserCategory.Id), nameof(SchoolUserCategory.Category));
-
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -103,7 +107,7 @@ namespace Oefenplatform.MVC.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Name/*, Email = Input.Email */};
+                var user = new IdentityUser { UserName = Input.LastName + "." + Input.FirstName/*, Email = Input.Email */};
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -121,12 +125,13 @@ namespace Oefenplatform.MVC.Areas.Identity.Pages.Account
                     //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     //await _signInManager.SignInAsync(user, isPersistent: false);
+                    string[] fullname = user.UserName.Split(".");
                     var schoolUser = new SchoolUser
                     {
                         IdentityReference = user.Id,
-                        FirstName = user.UserName,
+                        FirstName = fullname[1],
                         Id = Guid.NewGuid(),
-                        LastName = "admin",
+                        LastName = fullname[0],
                         ClassGroup = Input.ClassGroupName,
                         SchoolUserCategory = Input.SchoolUserCategory
                     };

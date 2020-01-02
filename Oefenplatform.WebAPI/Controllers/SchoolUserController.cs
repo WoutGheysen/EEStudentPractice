@@ -6,6 +6,7 @@ using Oefenplatform.WebAPI.Repositories;
 using Oefenplatform.Lib.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using System;
 
 namespace Oefenplatform.WebAPI.Controllers
 {
@@ -21,13 +22,24 @@ namespace Oefenplatform.WebAPI.Controllers
             _hostingEnvironment = hostingEnvironment;
             
         }
-        
-        // GET: api/Authors/Basic
         [HttpGet]
        
         public async Task<IEnumerable<SchoolUser>> GetAll()
         {
             return await _SchoolUserRepository.ListAll();
+        }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            return Ok(await _SchoolUserRepository.GetById(id));
+        }
+
+        [HttpGet]
+        [Route("IdRef/{id}")]
+        public async Task<IActionResult> GetByIdentityReference(string id)
+        {
+            return Ok(await _SchoolUserRepository.GetByIdentityReference(id));
         }
 
         [HttpPost]
@@ -55,6 +67,42 @@ namespace Oefenplatform.WebAPI.Controllers
             await _SchoolUserRepository.Add(user);
             return Ok();
             
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            SchoolUser deletedEntity = await _SchoolUserRepository.Delete(id);
+            if (deletedEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(deletedEntity);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put([FromRoute] Guid id, [FromBody] SchoolUser entity)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (id != entity.Id)
+            {
+                return BadRequest();
+            }
+
+            SchoolUser updatedEntity = await _SchoolUserRepository.Update(entity);
+            if (updatedEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedEntity);
         }
 
     }

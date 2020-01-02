@@ -1,0 +1,17 @@
+﻿@model Oefenplatform.MVC.Areas.Admin.Models.SchoolUserCategoryViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Categoriëen</h1>
+
+<a asp-controller="UserCategory" asp-action="Add">Nieuwe categorie</a>
+
+@foreach (var item in Model.schoolUserCategories)
+{
+    <label>@item.Category</label>
+    <a asp-controller="UserCategory" asp-action="Edit" asp-route-id="@item.Id">Wijzigen</a>
+    <a class="btn btn-danger" asp-controller="UserCategory" asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
+}
+<a asp-controller="Home" asp-action="Index">Terug naar lijst</a>

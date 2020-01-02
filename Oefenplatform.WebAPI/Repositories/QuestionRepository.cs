@@ -77,15 +77,31 @@ namespace Oefenplatform.WebAPI.Repositories
             return await GetAll()
                .Include(q => q.Answer)
                .Include(q => q.QuestionCategory)
+               .Include(q => q.Feedback)
                .ToListAsync();
+        }
+
+        public override async Task<Question> GetById(int id)
+        {
+            return await _oefenplatformContext.Questions.Where(q => q.Id == id)
+                .Include(q => q.Answer)
+                .Include(q => q.Feedback)
+                .Include(q => q.QuestionCategory)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Question> UpdateAllInclusive(Question question)
         {
             var questionAnswer = question.Answer;
+            var questionCategory = question.QuestionCategory;
 
             _oefenplatformContext.Entry(questionAnswer).State = EntityState.Modified;
-            _oefenplatformContext.Entry(question).State = EntityState.Modified;
+            _oefenplatformContext.Entry(question).State = EntityState.Modified;         
+            foreach (var feedback in question.Feedback)
+            {
+                _oefenplatformContext.Entry(feedback).State = EntityState.Modified;
+            }
+            _oefenplatformContext.Entry(questionCategory).State = EntityState.Modified;
             try
             {
                 await _oefenplatformContext.SaveChangesAsync();

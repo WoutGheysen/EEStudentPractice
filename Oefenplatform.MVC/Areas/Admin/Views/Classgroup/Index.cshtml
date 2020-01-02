@@ -1,0 +1,17 @@
+﻿@model Oefenplatform.MVC.Areas.Admin.Models.ClassGroupViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Klasgroepen</h1>
+
+<a asp-controller="Classgroup" asp-action="Add">Nieuwe groep</a>
+
+@foreach (var item in Model.classGroups)
+{
+    <label>@item.ClassGroupName</label>
+    <a asp-controller="Classgroup" asp-action="Edit" asp-route-id="@item.Id">Wijzigen</a>
+    <a class="btn btn-danger" asp-controller="Classgroup" asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
+}
+<a asp-controller="Home" asp-action="Index">Terug naar lijst</a>
