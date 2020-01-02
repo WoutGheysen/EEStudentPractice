@@ -18,15 +18,6 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
     {
         string baseUri = "https://localhost:5001/api";
 
-        private readonly ClassGroupRepository _classGroupRepository;
-        private readonly YearGradeRepository _yearGradeRepository;
-
-        public ClassgroupController(ClassGroupRepository classGroupRepository, YearGradeRepository yearGradeRepository)
-        {
-            _classGroupRepository = classGroupRepository;
-            _yearGradeRepository = yearGradeRepository;
-        }
-
         public IActionResult Index()
         {
             string fullLink = $"{baseUri}/ClassGroup";
