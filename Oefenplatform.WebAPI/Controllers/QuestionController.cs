@@ -36,7 +36,7 @@ namespace Oefenplatform.WebAPI.Controllers
         [Route("{id}")]
         public override async Task<IActionResult> Get(int id)
         {
-            return Ok(await _repository.GetIdInclusive(id));
+            return Ok(await _repository.GetById(id));
         }
 
         #region AutoMapper Methods
