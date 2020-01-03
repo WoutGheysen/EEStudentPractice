@@ -44,6 +44,17 @@ namespace Oefenplatform.WebAPI
             services.AddScoped<WrongAnswerRepository>();
             services.AddScoped<YearGradeRepository>();
             services.AddScoped<AnswerRepository>();
+            services.AddCors(options =>
+            {
+                // this defines a CORS policy called "default"
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins("http://localhost:44321")
+                        .AllowAnyHeader()
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod();
+                });
+            });
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
@@ -68,6 +79,7 @@ namespace Oefenplatform.WebAPI
             }
             app.UseAuthentication();
             app.UseHttpsRedirection();
+            app.UseCors("default");
             app.UseMvc();
         }
     }

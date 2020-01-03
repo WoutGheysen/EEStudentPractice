@@ -1,0 +1,214 @@
+﻿
+@{
+    ViewData["Title"] = "IndexVue";
+}
+
+<h1>IndexVue</h1>
+<article id="app" class="row">
+    <header class="col-md-4">
+        <h3>{{ message }}</h3> @*Vue Mustache*@
+        <nav>
+            <ul class="list-group">
+                <li onclick="" v-for="test in tests" v-on:click="fetchTestDetails(test)":class="getTestClass(test)" style="cursor:pointer">
+                    <span class="assessmentTitle">{{test.assessmentTitle}}</span>
+                </li>
+                
+            </ul>
+        </nav>
+        
+    </header>
+    <div  class="col-md-8">
+        <h3>Questions</h3>
+        <form class="form">
+            <div class="form-group">
+                <nav>
+                    <ul>
+                        <li v-for="question in questionsArray" >
+                            <span class="questionTitle">{{question.questionTitle}}</span><input id="AnsweredValue" />
+                            <input type ="hidden" id="hiddenSender" v-model="question.id" />
+                            <button type="button" id="confirmButton" onclick="CheckAnswer(document.getElementById('AnsweredValue').value, document.getElementById('hiddenSender').value)" >Controleer</button>
+                            
+                        </li>
+                    </ul>
+                    <button id="nextQuestion" value="Volgende vraag"></button>
+                </nav>
+            </div>
+        </form>
+    </div>
+</article>
+
+
+
+@section Scripts{
+    
+    <script src="~/vue/vue.js"></script>
+    <script>
+        var genObj = {
+        questionTitle: "",
+        description: null,
+        startNumber: null,
+        feedback: null,
+        answer: {
+            mathAnswer: null,
+            langAnswer: null,
+            id: null
+        },
+        fileName: null,
+        attempts: 0,
+        questionCategory: {
+            categoryQuestion: "",
+            id: null
+        },
+        id: null
+    }
+        var apiUrl = "https://localhost:5001/api/assessment";
+        var feedbackButton = document.getElementById("confirmButton");
+        var nextQuestionButton = document.getElementById("nextQuestion");
+        var questionsArray = [];
+        var questionsPublic = [];
+        Vue.config.productionTip = false;
+        var testString = "";
+        var app = new Vue({
+            el: '#app',
+            mode: 'Production',
+            data: {
+                message: 'Loading Tests',
+                tests: null,
+                currentTest: null,
+                questions: null,
+                questionsArray:null
+            },
+            created: function () {
+                var self = this;
+                self.fetchTests();
+                self.fetchQuestions();
+            },
+            methods: {
+                fetchTests: function () {
+                    self = this;
+                    
+                    fetch(`${apiUrl}`)
+                        .then(res => res.json())
+                        .then(function (tests) {
+                            tests.forEach(function (test, i) {
+                                test.isActive = false;
+                            });
+                            self.tests = tests;
+                            self.message = 'Overview';
+                        })
+                        .catch(err => console.error('fout: ' + err));
+
+                        
+                       
+                   
+                },
+                fetchQuestions: function () {
+                    self = this;
+                    
+                    fetch("https://localhost:5001/api/question")
+                        .then(res => res.json())
+                        .then(function (questions) {
+                           
+                            questions.forEach(function (question, i) {
+                                question.isActive = false;
+                            });
+                            self.questions = questions;
+                            questionsPublic = questions;
+                            self.message = 'overview';
+                            
+                        })
+                        .catch(err => console.error('fout: ' + err));
+
+                        
+                       
+                   
+                },
+                fetchTestDetails: function (test) {
+                    questionsArray.splice(0, questionsArray.length)
+                    self = this;
+                    
+                    self.tests.forEach(function (test2, i) { test2.isActive = false; })
+                    var i = 1;
+                    self.questions.forEach(function (question) {
+                        
+                        if (question.questionCategory.id === test.id) {
+                            if (question.startNumber != null) {
+                                if (question.questionCategory.categoryQuestion == "Splitsen") {
+                                    question.questionTitle = "Trek af " + question.startNumber + " - " + Math.random() * (question.startNumber - 1) + 1; + " = ";
+                                    questionsArray.push(question);
+                                }
+
+                                if (question.questionCategory.categoryQuestion == "Tafels") {
+                                    for (i ; i < 25; i++) {
+                                        
+                                        var newQuestion = {
+                                            questionTitle: question.startNumber + ' X ' + i + ' = ',
+                                            description: null,
+                                            startNumber: question.startNumber,
+                                            feedback: null,
+                                            answer: {
+                                                mathAnswer: question.startNumber * (i - 1),
+                                                langAnswer: null,
+                                                id: questionsPublic.length + 1
+                                            },
+                                            fileName: null,
+                                            attempts: 0,
+                                            questionCategory: {
+                                                categoryQuestion: 'Tafels',
+                                                id: '3'
+                                            },
+                                            id: i
+                                        }
+                                    
+
+                                        
+                                        
+
+                                        questionsArray.push(newQuestion);
+                                        continue;
+                                        
+                                    }
+                                    
+                                    
+                                }
+                                
+
+                            }
+                            
+                            questionsArray.push(question);
+                            
+                        }
+                    })
+                    self.questionsArray = questionsArray;
+
+                    test.isActive = true;
+                    testString = test.assessmentTitle;
+                    currentTest = test;
+                },
+                getTestClass: function (test) {
+                    if (test.isActive) return 'list-group-item active';
+                    return 'list-group-item';
+                },
+                
+                
+            }
+
+        });
+
+        function CheckAnswer(answered, questionId) {
+            var question = questionsArray[questionId];
+            console.log(question);
+            if (question.questionCategory.categoryQuestion == "Tafels") {
+                console.log("controle tafels");
+                if (question.answer.mathAnswer == parseInt(answered)) {
+                    console.log("correct");
+                } 
+            }
+            
+        }
+
+       
+    </script>
+}
+
+

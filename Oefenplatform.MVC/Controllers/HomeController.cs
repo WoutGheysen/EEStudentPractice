@@ -40,12 +40,18 @@ namespace Oefenplatform.MVC.Controllers
             {
                 return RedirectToAction("Index", "Home", new { Area = "Admin" });
             }
-            else if(user.SchoolUserCategory.Category == "Teacher")
+
+            else if (user.SchoolUserCategory.Category == "Teacher")
             {
                 return RedirectToAction("Index", "Home", new { Area = "Teacher" });
+
             }
             return View();
+        }
 
+        public ActionResult IndexVue()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
