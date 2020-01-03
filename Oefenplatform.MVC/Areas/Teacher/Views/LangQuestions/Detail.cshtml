@@ -32,7 +32,7 @@
                 {
                     <div class="form-group">
                         <label asp-for="QuestionCategoryId" class="control-label"></label>
-                        <select asp-for="QuestionCategoryId" class="form-control"
+                        <select asp-for="QuestionCategoryId" class="form-control" required
                                 asp-items="@(new SelectList(Model.AvailableCategories,"Id","CategoryQuestion"))">
                             <option value="">-- Pick a category --</option>
                         </select>
@@ -42,8 +42,8 @@
                 @if (ViewBag.Mode == "Edit")
                 {
                     <div class="form-group">
-                        <label asp-for="QuestionCategoryId" class="control-label"></label>
-                        <input asp-for="QuestionCategoryId" class="form-control" readonly="readonly" />
+                        <label asp-for="QuestionCategoryId" class="control-label" hidden="hidden"></label>
+                        <input asp-for="QuestionCategoryId" class="form-control" readonly="readonly" hidden="hidden"/>
                         <span asp-validation-for="QuestionCategoryId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -53,8 +53,8 @@
                     </div>
                 }
                 <div class="form-group">
-                    <label asp-for="Id" class="control-label"></label>
-                    <input asp-for="Id" class="form-control" readonly="readonly" />
+                    <label asp-for="Id" class="control-label" hidden="hidden"></label>
+                    <input asp-for="Id" class="form-control" readonly="readonly" hidden="hidden"/>
                     <span asp-validation-for="Id" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -68,8 +68,8 @@
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="AnswerId" class="control-label"></label>
-                    <input asp-for="AnswerId" class="form-control" readonly="readonly" />
+                    <label asp-for="AnswerId" class="control-label" hidden="hidden"></label>
+                    <input asp-for="AnswerId" class="form-control" readonly="readonly" hidden="hidden"/>
                     <span asp-validation-for="AnswerId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -78,8 +78,8 @@
                     <span asp-validation-for="Answer" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="FirstFeedbackId" class="control-label"></label>
-                    <input asp-for="FirstFeedbackId" class="form-control" readonly="readonly" />
+                    <label asp-for="FirstFeedbackId" class="control-label" hidden="hidden"></label>
+                    <input asp-for="FirstFeedbackId" class="form-control" readonly="readonly" hidden="hidden"/>
                     <span asp-validation-for="FirstFeedbackId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -88,8 +88,8 @@
                     <span asp-validation-for="FirstFeedback" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="SecondFeedbackId" class="control-label"></label>
-                    <input asp-for="SecondFeedbackId" class="form-control" readonly="readonly" />
+                    <label asp-for="SecondFeedbackId" class="control-label" hidden="hidden"></label>
+                    <input asp-for="SecondFeedbackId" class="form-control" readonly="readonly" hidden="hidden"/>
                     <span asp-validation-for="SecondFeedbackId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
