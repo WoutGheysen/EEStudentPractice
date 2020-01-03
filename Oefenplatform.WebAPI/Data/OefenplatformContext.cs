@@ -1184,20 +1184,6 @@ namespace Oefenplatform.WebAPI.Data
                     Grade = 3
                 });
             #endregion
-            #region SchoolUsers
-            modelBuilder.Entity<SchoolUser>()
-                .HasData(
-                new
-                {
-                    FirstName = "first",
-                    LastName = "testSchoolUser",
-                    ClassGroupId = 1,
-                    Password = "test",
-                    Id = Guid.Parse(Guid.NewGuid().ToString()),
-                    SchoolUserCategoryId = 1,
-                    IdentityReference = "00000000-0000-0000-0000-000000000001"
-                });
-            #endregion
 
 
             modelBuilder.Entity<Question>()
