@@ -3,6 +3,7 @@ using Oefenplatform.Lib.Models;
 using Oefenplatform.WebAPI.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace Oefenplatform.WebAPI.Repositories.Base
             }
             catch (Exception ex)
             {
-                
+                Debug.WriteLine(ex.Message);
                 return null;
             }
             return entity;
@@ -67,10 +68,12 @@ namespace Oefenplatform.WebAPI.Repositories.Base
             _oefenplatformContext.Set<T>().Remove(entity);
             try
             {
+                //doesn't savechangesasync here
                 await _oefenplatformContext.SaveChangesAsync();
             }
-            catch
+            catch(Exception ex)
             {
+                Debug.WriteLine(ex.Message);
                 return null;
             }
             return entity;
@@ -109,8 +112,8 @@ namespace Oefenplatform.WebAPI.Repositories.Base
                 await _oefenplatformContext.SaveChangesAsync();
             }
             catch (Exception ex)
-            { 
-                return null;
+            {
+                Debug.WriteLine(ex.Message);
             }
             return entity;
         }

@@ -1,4 +1,5 @@
-﻿using Oefenplatform.Lib.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Oefenplatform.Lib.Models;
 using Oefenplatform.WebAPI.Data;
 using Oefenplatform.WebAPI.Repositories.Base;
 using System;
@@ -13,6 +14,14 @@ namespace Oefenplatform.WebAPI.Repositories
         public AssessmentRepository(OefenplatformContext oefenplatformContext):base (oefenplatformContext)
         {
 
+        }
+
+        public async Task<Assessment> GetIdInclusive(int id)
+        {
+            return await _oefenplatformContext.Assessment
+                .Where(q => q.Id == id)
+                .Include(a => a.AssessmentDetails)
+                .FirstOrDefaultAsync();
         }
     }
 }

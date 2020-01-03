@@ -1,35 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Oefenplatform.Lib.DTO.QuestionDto;
 using Oefenplatform.Lib.Models;
-using Oefenplatform.MVC.Areas.Teacher.Models.LangFirstQuestions;
+using Oefenplatform.MVC.Areas.Teacher.Models.LangQuestions;
 using Oefenplatform.MVC.Services;
+using Oefenplatform.WebAPI.Constants;
 
 namespace Oefenplatform.MVC.Areas.Teacher.Controllers
 {
     [Area("Teacher")]
-    public class LangFirstQuestionsController : Controller
+    public class LangQuestionsController : Controller
     {
-        
         string baseUri = "https://localhost:5001/api";
-        private readonly ImageServices _imageServices;
 
-        public LangFirstQuestionsController(ImageServices imageServices)
-        {
-            _imageServices = imageServices;
-        }
         public IActionResult Index()
         {
-            string fullLink = $"{baseUri}/Question/LangFirstGradeQuestions";
+            string fullLink = $"{baseUri}/Question/";
 
-            var allFirstLangQuestions = WebApiService.GetApiResult<List<LangFirstGradeQuestionDto>>(fullLink);
+            var allLangQuestions = WebApiService.GetApiResult<List<Question>>(fullLink);
+            var specificList = allLangQuestions.Where(c => c.QuestionCategory.CategoryQuestion == QuestionCategories.LangQuestionSecondGrade || c.QuestionCategory.CategoryQuestion == QuestionCategories.LangQuestionThirdGrade);
 
-            var viewModel = new LangFirstQuestionsIndexVm()
+            var viewModel = new LangQuestionsIndexVm()
             {
-                Questions = allFirstLangQuestions
+                Questions = specificList
             };
 
             return View(viewModel);
@@ -37,15 +32,17 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
 
         public IActionResult Detail(int id)
         {
+            //POSSIBLE ADJUST FOR QUESTIONCATEGORY
             ViewBag.Mode = "Detail";
             var questionLink = $"{baseUri}/Question/{id}";
             var question = WebApiService.GetApiResult<Question>(questionLink);
 
-            var viewModel = new LangFirstQuestionDetailVm()
+            var viewModel = new LangQuestionsDetailVm()
             {
+                QuestionCategory = question.QuestionCategory.CategoryQuestion,
                 Id = question.Id,
                 QuestionTitle = question.QuestionTitle,
-                FileName = question.FileName,
+                Description = question.Description,
                 AnswerId = question.Answer.Id,
                 Answer = question.Answer.LangAnswer,
                 FirstFeedbackId = question.Feedback.OfType<Feedback>().ElementAt(0).Id,
@@ -58,17 +55,20 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
 
         public IActionResult Update(int id)
         {
+            //ADJUST FOR QUESTIONCATEGORY
             ViewBag.Mode = "Edit";
             var questionLink = $"{baseUri}/Question/{id}";
             var question = WebApiService.GetApiResult<Question>(questionLink);
 
-            var viewModel = new LangFirstQuestionDetailVm()
+            var viewModel = new LangQuestionsDetailVm()
             {
                 Id = question.Id,
                 QuestionTitle = question.QuestionTitle,
-                FileName = question.FileName,
-                AnswerId =  question.Answer.Id,
+                Description = question.Description,
+                AnswerId = question.Answer.Id,
                 Answer = question.Answer.LangAnswer,
+                QuestionCategory = question.QuestionCategory.CategoryQuestion,
+                QuestionCategoryId = question.QuestionCategory.Id,
                 FirstFeedbackId = question.Feedback.OfType<Feedback>().ElementAt(0).Id,
                 FirstFeedback = question.Feedback.OfType<Feedback>().ElementAt(0).Description,
                 SecondFeedbackId = question.Feedback.OfType<Feedback>().ElementAt(1).Id,
@@ -80,15 +80,23 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
         public IActionResult Create()
         {
             ViewBag.Mode = "Create";
-            return View("Detail");
+            var categoryLink = $"{baseUri}/QuestionCategory";
+            var categories = WebApiService.GetApiResult<List<QuestionCategory>>(categoryLink);
+            var availableCategories = categories.Where(c => c.CategoryQuestion == QuestionCategories.LangQuestionSecondGrade || c.CategoryQuestion == QuestionCategories.LangQuestionThirdGrade);
+            var viewModel = new LangQuestionsDetailVm()
+            {
+                AvailableCategories = availableCategories
+            };
+            return View("Detail", viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(LangFirstQuestionDetailVm viewModel, IFormFile picture)
+        public async Task<IActionResult> Save(LangQuestionsDetailVm viewModel)
         {
+            //ADJUST BOTH FOR QUESTIONCATEGORY (CAN QUESTIONCATEGORY BE CHANGED?)
             if (viewModel.Id != 0)
             {
-                var categoryLink = $"{baseUri}/QuestionCategory/{2}";
+                var categoryLink = $"{baseUri}/QuestionCategory/{viewModel.QuestionCategoryId}";
                 var category = WebApiService.GetApiResult<QuestionCategory>(categoryLink);
 
                 var answerLink = $"{baseUri}/Answer/{viewModel.AnswerId}";
@@ -107,7 +115,7 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
                 {
                     Id = viewModel.Id,
                     QuestionTitle = viewModel.QuestionTitle,
-                    FileName = _imageServices.UploadImage(picture, "images/LangFirstQuestions"),
+                    Description = viewModel.Description,
                     AnswerId = answer.Id,
                     Answer = answer,
                     QuestionCategory = category,
@@ -123,7 +131,7 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
             }
             else
             {
-                var categoryLink = $"{baseUri}/QuestionCategory/{2}";
+                var categoryLink = $"{baseUri}/QuestionCategory/{viewModel.QuestionCategoryId}";
                 var category = WebApiService.GetApiResult<QuestionCategory>(categoryLink);
 
                 var answerLink = $"{baseUri}/Answer";
@@ -131,7 +139,7 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
                 {
                     LangAnswer = viewModel.Answer
                 };
-                //var seededAnswer = await WebApiService.PostCallApi<Answer, Answer>(answerLink, answer);
+
                 answer.Id = 0;
 
                 List<Feedback> feedbackList = new List<Feedback>();
@@ -141,14 +149,14 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
                 var question = new Question()
                 {
                     QuestionTitle = viewModel.QuestionTitle,
-                    FileName = _imageServices.UploadImage(picture, "images/LangFirstQuestions"),
+                    Description = viewModel.Description,
                     Answer = answer,
                     QuestionCategory = category,
                     Feedback = feedbackList
                 };
                 await WebApiService.PostCallApi<Question, Question>(questionLink, question);
 
-                
+
                 return RedirectToAction(nameof(Index));
             }
         }

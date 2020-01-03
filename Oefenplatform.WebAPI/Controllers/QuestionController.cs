@@ -32,6 +32,13 @@ namespace Oefenplatform.WebAPI.Controllers
             return Ok(await _repository.GetAllInclusive());
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public override async Task<IActionResult> Get(int id)
+        {
+            return Ok(await _repository.GetIdInclusive(id));
+        }
+
         #region AutoMapper Methods
         //Get MathQuestions for FirstGrade
         [HttpGet]
@@ -111,7 +118,7 @@ namespace Oefenplatform.WebAPI.Controllers
         }
         #endregion
         [HttpPut("{id}")]
-        public override async Task<IActionResult> Put([FromRoute] int id, [FromBody] Question question)
+        public override async Task<IActionResult> Put([FromRoute] int id, Question question)
         {
             if (!ModelState.IsValid)
             {
@@ -122,7 +129,7 @@ namespace Oefenplatform.WebAPI.Controllers
                 return BadRequest();
             }
 
-            Question updatedEntity = await _repository.UpdateAllInclusive(question);
+            Question updatedEntity = await _repository.Update(question);
             if (updatedEntity == null)
             {
                 return NotFound();
