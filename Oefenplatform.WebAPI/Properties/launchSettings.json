@@ -19,7 +19,6 @@
     },
     "Oefenplatform.WebAPI": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "api/question",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
