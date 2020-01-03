@@ -15,9 +15,14 @@ namespace Oefenplatform.WebAPI.Controllers
     [ApiController]
     public class AssessmentDetailController : ControllerCrudBase<AssessmentDetail, AssessmentDetailRepository>
     {
-        public AssessmentDetailController(AssessmentDetailRepository assessmentDetailRepository):base (assessmentDetailRepository)
+        public AssessmentDetailController(AssessmentDetailRepository assessmentDetailRepository) : base(assessmentDetailRepository)
         {
 
+        }
+
+        public override async Task<IActionResult> Get(int id)
+        {
+            return Ok(await _repository.GetByIdInclusive(id));
         }
     }
 }

@@ -9,6 +9,6 @@ namespace Oefenplatform.MVC.Areas.Teacher.Models.AssessmentFirstLang
 {
     public class AssessmentFirstLangCreateTestVm
     {
-        public List<Question> Questions { get; set; }
+        public List<AssessmentFirstLangCreateTestDetailVm> QuestionsToBeAdded { get; set; }
     }
 }

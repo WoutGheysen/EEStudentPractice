@@ -1,4 +1,4 @@
-﻿@model Oefenplatform.MVC.Areas.Teacher.Models.AssessmentFirstLang.AssessmentFirstLangCreateTestVm
+﻿@model List<Oefenplatform.MVC.Areas.Teacher.Models.AssessmentFirstLang.AssessmentFirstLangCreateTestDetailVm>
 
 @{
 	ViewData["Title"] = "CreateTest";
@@ -6,13 +6,12 @@
 }
 
 <h1>CreateTest</h1>
-
-<form asp-action="Save">
+<form asp-action="Save" method="post">
 	<table class="table">
 		<thead>
 			<tr>
 				<th>
-					@Html.DisplayNameFor(model => model.Questions)
+					@Html.DisplayNameFor(model => model)
 				</th>
 				<th>
 					Description
@@ -23,26 +22,22 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var item in Model.Questions)
+			@for (int i = 0; i < Model.Count; i++)
 			{
 				<tr>
 					<td>
-						@Html.DisplayFor(modelItem => item.QuestionTitle)
+						@Html.DisplayFor(modelItem => Model[i].QuestionToAdd.QuestionTitle)
 					</td>
 					<td>
-						@Html.DisplayFor(modelItem => item.Description)
+						@Html.DisplayFor(modelItem => Model[i].QuestionToAdd.Description)
 					</td>
 					<td>
-						@*<label class="container">
-								<input type="checkbox">
-								<span class="checkmark"></span>
-							</label>*@
-						@*@Html.DisplayFor(modelItem => item.IsAddedToTest)*@
-						@Html.CheckBox("IsAddedToTest")
+						<input type="hidden" asp-for="@Model[i].QuestionId" />
+						<input asp-for="@Model[i].IsToBeAdded"/>
 					</td>
 				</tr>
 			}
 		</tbody>
 	</table>
-	<button>Save</button>
+	<input type="submit" value="Opslaan" class="btn btn-primary" />
 </form>
