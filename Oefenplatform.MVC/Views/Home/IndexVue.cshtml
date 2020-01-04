@@ -24,9 +24,11 @@
                 <nav>
                     <ul>
                         <li v-for="question in questionsArray" >
-                            <span class="questionTitle">{{question.questionTitle}}</span><input id="AnsweredValue" />
-                            <input type ="hidden" id="hiddenSender" v-model="question.id" />
-                            <button type="button" id="confirmButton" onclick="CheckAnswer(document.getElementById('AnsweredValue').value, document.getElementById('hiddenSender').value)" >Controleer</button>
+                            <span class="questionTitle">{{question.questionTitle}}</span><input class="questionId" v-bind:id="question.id" />
+                           
+                            <textarea rows="5" class="questionTitle" v-bind:id="question.questionTitle"></textarea>
+                            <button class="questionId"  type="button" id="confirmButton" v-on:click="CheckAnswer(question.id)" >Controleer</button>
+                            
                             
                         </li>
                     </ul>
@@ -76,7 +78,8 @@
                 tests: null,
                 currentTest: null,
                 questions: null,
-                questionsArray:null
+                questionsArray: null,
+                questionId: null
             },
             created: function () {
                 var self = this;
@@ -129,20 +132,53 @@
                     
                     self.tests.forEach(function (test2, i) { test2.isActive = false; })
                     var i = 1;
+                    
                     self.questions.forEach(function (question) {
                         
                         if (question.questionCategory.id === test.id) {
+
                             if (question.startNumber != null) {
+                               
                                 if (question.questionCategory.categoryQuestion == "Splitsen") {
-                                    question.questionTitle = "Trek af " + question.startNumber + " - " + Math.random() * (question.startNumber - 1) + 1; + " = ";
-                                    questionsArray.push(question);
+                                    
+                                   
+                                    for (i ; i < 25; i++) {
+                                         var random = Math.round(Math.random() * (question.startNumber - 1) + 1);
+                                        var newQuestion = {
+                                            questionTitle:"Oefening" + i + ": " + question.startNumber + ' - ' + random + ' = ',
+                                            description: null,
+                                            startNumber: question.startNumber,
+                                            feedback: null,
+                                            answer: {
+                                                mathAnswer: question.startNumber - random,
+                                                langAnswer: null,
+                                                id: questionsPublic.length + i
+                                            },
+                                            fileName: null,
+                                            attempts: 0,
+                                            questionCategory: {
+                                                categoryQuestion: 'Splitsen',
+                                                id: '3'
+                                            },
+                                            id: i - 1
+                                        }
+                                    
+
+                                        
+                                        
+
+                                        questionsArray.push(newQuestion);
+                                        console.log(newQuestion.id);
+                                        continue;
+                                        
+                                    }
                                 }
 
                                 if (question.questionCategory.categoryQuestion == "Tafels") {
                                     for (i ; i < 25; i++) {
                                         
                                         var newQuestion = {
-                                            questionTitle: question.startNumber + ' X ' + i + ' = ',
+                                            questionTitle: "Oefening" + i + ": " + question.startNumber + ' X ' + i + ' = ',
                                             description: null,
                                             startNumber: question.startNumber,
                                             feedback: null,
@@ -189,22 +225,50 @@
                     if (test.isActive) return 'list-group-item active';
                     return 'list-group-item';
                 },
+                CheckAnswer(questionId) {
+                    var answered = document.getElementById(questionId).value;
+                    var question = questionsArray[questionId];
+                    testCheckAnswer(question, answered);
+            
+        }
                 
                 
             }
 
         });
 
-        function CheckAnswer(answered, questionId) {
-            var question = questionsArray[questionId];
-            console.log(question);
-            if (question.questionCategory.categoryQuestion == "Tafels") {
-                console.log("controle tafels");
-                if (question.answer.mathAnswer == parseInt(answered)) {
-                    console.log("correct");
-                } 
-            }
-            
+        function testCheckAnswer(question, answered) {
+           
+                console.log(question.Id);
+                    if (question.questionCategory.categoryQuestion == "Tafels") {
+                        console.log("controle tafels");
+                        if (question.answer.mathAnswer === parseInt(answered)) {
+                            console.log("correct");
+                            answered.isActive = false;
+                        }
+                    }
+                    else if (question.answer.mathAnswer != parseInt(answered)) {
+                        question.attempts = question.attempts + 1;
+                        var area = document.getElementById(question.questionTitle);
+                        if (question.attempts == 1) {
+
+                        }
+
+
+                        console.log("incorrect");
+                        
+                        
+                    }
+                 
+                    if (question.questionCategory.categoryQuestion == "Splitsen") {
+                        if (question.answer.mathAnswer === parseInt(answered)) {
+                            console.log("correct");
+                            answered.isActive = false;
+                        }
+                    }
+                    else if (question.answer.mathAnswer != parseInt(answered)) {
+                        console.log("incorrect");
+                    }
         }
 
        
