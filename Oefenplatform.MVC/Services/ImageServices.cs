@@ -18,16 +18,18 @@ namespace Oefenplatform.MVC.Services
 
         public string UploadImage(IFormFile picture, string locationUri)
         {
-            string fileLocation = Path.Combine(_hostingEnvironment.WebRootPath, "images/", Path.GetFileName("biesWeideLogo.png"));
+            string fileName = "biesWeideLogo.png";
+            string fileLocation = Path.Combine(_hostingEnvironment.WebRootPath, "images/", Path.GetFileName(fileName));
             if(picture != null)
             {
-                fileLocation = Path.Combine(_hostingEnvironment.WebRootPath, locationUri, Path.GetFileName(picture.FileName)) + Guid.NewGuid().ToString();
+                fileName = Guid.NewGuid().ToString() + Path.Combine(picture.FileName);
+                fileLocation = Path.Combine(_hostingEnvironment.WebRootPath, locationUri, fileName);
                 picture.CopyTo(new FileStream(fileLocation, FileMode.Create));
-                return fileLocation;
+                return fileName;
             }
             else
             {
-                return fileLocation;
+                return fileName;
             }
             
         }
