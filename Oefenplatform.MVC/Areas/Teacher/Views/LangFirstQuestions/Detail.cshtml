@@ -4,34 +4,39 @@
     ViewData["Title"] = "Detail";
 }
 
-<h1>Detail Overzicht</h1>
-
-<hr />
 @if (ViewBag.Mode == "Detail")
 {
+    <h1>Detail Overzicht</h1>
     <div class="panel-body">
         <ul>
-            <li>@Model.Id</li>
-            <li>@Model.QuestionTitle</li>
-            <li>@Model.FileName</li>
-            <li>@Model.Answer</li>
-            <li>@Model.FirstFeedback</li>
-            <li>@Model.SecondFeedback</li>
+            <li>ID: @Model.Id</li>
+            <li>Titel: @Model.QuestionTitle</li>
+            <li>Afbeelding: @Model.FileName</li>
+            <li>Antwoord: @Model.Answer</li>
+            <li>Feedback: @Model.FirstFeedback</li>
+            <li>Feedback: @Model.SecondFeedback</li>
+            <li><img src="~/images/LangFirstQuestions/@Model.FileName" /></li>
         </ul>
-        <img src="@Model.FileName" />
+
         <a class="btn btn-warning" asp-action="Update" asp-route-id="@Model.Id">Aanpassen</a>
         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Verwijderen</a>
+    </div>
+    <br />
+    <br />
+    <div>
+        <a class="btn btn-colour-custom" asp-action="Index">Back to List</a>
     </div>
 }
 @if (ViewBag.Mode == "Edit" || ViewBag.Mode == "Create")
 {
+    <h1>Aanmaken of Aanpassen</h1>
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Save" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Id" class="control-label" hidden="hidden"></label>
-                    <input asp-for="Id" class="form-control" readonly="readonly" hidden="hidden"/>
+                    <input asp-for="Id" class="form-control" readonly="readonly" hidden="hidden" />
                     <span asp-validation-for="Id" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -45,6 +50,7 @@
                         <label asp-for="FileName" class="control-label">Afbeelding Naam</label>
                         <input asp-for="FileName" class="form-control" readonly="readonly" />
                         <span asp-validation-for="FileName" class="text-danger"></span>
+                        <img src="~/images/LangFirstQuestions/@Model.FileName" />
                     </div>
                 }
                 <div class="form-group">
@@ -53,7 +59,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="AnswerId" class="control-label" hidden="hidden"></label>
-                    <input asp-for="AnswerId" class="form-control" readonly="readonly" hidden="hidden"/>
+                    <input asp-for="AnswerId" class="form-control" readonly="readonly" hidden="hidden" />
                     <span asp-validation-for="AnswerId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -63,7 +69,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="FirstFeedbackId" class="control-label" hidden="hidden"></label>
-                    <input asp-for="FirstFeedbackId" class="form-control" readonly="readonly" hidden="hidden"/>
+                    <input asp-for="FirstFeedbackId" class="form-control" readonly="readonly" hidden="hidden" />
                     <span asp-validation-for="FirstFeedbackId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -73,7 +79,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="SecondFeedbackId" class="control-label" hidden="hidden"></label>
-                    <input asp-for="SecondFeedbackId" class="form-control" readonly="readonly" hidden="hidden"/>
+                    <input asp-for="SecondFeedbackId" class="form-control" readonly="readonly" hidden="hidden" />
                     <span asp-validation-for="SecondFeedbackId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -89,7 +95,7 @@
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a class="btn btn-colour-custom" asp-action="Index">Back to List</a>
     </div>
 }
 
