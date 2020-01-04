@@ -1,15 +1,20 @@
 ﻿@model Oefenplatform.MVC.Models.Shared.NavbarVm
-
+<style>
+    .linkImage{
+        width: 35%;
+        height: 35%;
+    }
+</style>
 @if (ViewBag.Mode == "Student")
 {
-    <a class="navbar-brand" asp-action="@Model.Action" asp-controller="@Model.Controller">Oefenplatform</a>
+    <a class="navbar-brand" asp-action="@Model.Action" asp-controller="@Model.Controller"><img src="~/images/biesWeideLogo.png" class="linkImage" /></a>
 }
 else if (ViewBag.Mode == "Teacher")
 {
-    <a class="navbar-brand" asp-action="@Model.Action" asp-controller="@Model.Controller" asp-area="@Model.Area">Oefenplatform | Teacher</a>
+    <a class="navbar-brand" asp-action="@Model.Action" asp-controller="@Model.Controller" asp-area="@Model.Area"><img src="~/images/biesWeideLogo.png" class="linkImage" /></a>
 }
 else
 {
-    <a class="navbar-brand" asp-action="@Model.Action" asp-controller="@Model.Controller" asp-area="@Model.Area">Oefenplatform | Admin</a>
+    <a class="navbar-brand" asp-action="@Model.Action" asp-controller="@Model.Controller" asp-area="@Model.Area"><img src="~/images/biesWeideLogo.png" class="linkImage" /></a>
 }
 
