@@ -1,0 +1,15 @@
+﻿@model Oefenplatform.MVC.Models.Shared.NavbarVm
+
+@if (ViewBag.Mode == "Student")
+{
+    <a class="navbar-brand" asp-action="@Model.Action" asp-controller="@Model.Controller">Oefenplatform</a>
+}
+else if (ViewBag.Mode == "Teacher")
+{
+    <a class="navbar-brand" asp-action="@Model.Action" asp-controller="@Model.Controller" asp-area="@Model.Area">Oefenplatform | Teacher</a>
+}
+else
+{
+    <a class="navbar-brand" asp-action="@Model.Action" asp-controller="@Model.Controller" asp-area="@Model.Area">Oefenplatform | Admin</a>
+}
+
