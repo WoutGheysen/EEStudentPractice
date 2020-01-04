@@ -27,6 +27,23 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
             _user = user;
         }
 
+        public IActionResult OverView()
+        {
+            string classgroupLink = $"{baseUri}/ClassGroup";
+            string categoryLink = $"{baseUri}/SchoolUserCategory";
+            string userLink = $"{baseUri}/SchoolUser";
+            var users = WebApiService.GetApiResult<List<SchoolUser>>(userLink);
+            var classes = WebApiService.GetApiResult<List<ClassGroup>>(classgroupLink);
+            var categories = WebApiService.GetApiResult<List<SchoolUserCategory>>(categoryLink);
+            UserViewModel viewmodel = new UserViewModel()
+            {
+                Users = users,
+                ClassGroups = classes,
+                Categories = categories
+            };
+            return View(viewmodel);
+        }
+
         public IActionResult Index(Guid id)
         {
             string fullLink = $"{baseUri}/SchoolUser";
@@ -134,7 +151,7 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
             await _user.DeleteAsync(identityUser);
             await WebApiService.DeleteCallApi<SchoolUser>(userById);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Overview", "User");
         }
     }
 }

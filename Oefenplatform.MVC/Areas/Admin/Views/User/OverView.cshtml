@@ -1,0 +1,90 @@
+﻿@model Oefenplatform.MVC.Areas.Admin.Models.UserViewModel
+@{
+	ViewData["Title"] = "OverView";
+}
+
+<h1>Overzicht van studenten en personeel</h1>
+
+
+<form class="form-inline" asp-area="Identity" asp-page="/Account/Register"
+	  asp-route-returnUrl="@Url.Page("/", new { area = "" })"
+	  method="get">
+	<button type="submit" class="btn btn-danger btn-attributes">Maak nieuwe gebruiker aan</button>
+</form>
+
+@foreach (var klas in Model.ClassGroups)
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="btn-color">
+					@klas.ClassGroupName
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+				<tr>
+					<td>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>
+										Voornaam
+									</th>
+									<th>
+										Familienaam
+									</th>
+									<th>
+										Groep
+									</th>
+									<th>
+										Klas
+									</th>
+									<th>
+										Acties
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var user in Model.Users)
+								{
+									if (user.ClassGroup.Id == klas.Id)
+									{
+										<tr>
+											<td>
+												@user.FirstName
+											</td>
+											<td>
+												@user.LastName
+											</td>
+											<td>
+												@user.SchoolUserCategory.Category
+											</td>
+											<td>
+												@user.ClassGroup.ClassGroupName
+											</td>
+											<td>
+												<div class="d-inline-flex">
+													<div>
+														<a class="btn btn-success btn-color btn-attributes" asp-area="Admin" asp-controller="User" asp-action="Index" asp-route-id="@user.Id">Details</a>
+													</div>
+													<div>
+														<a class="btn btn-warning btn-attributes" asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Aanpassen</a>
+													</div>
+													<div>
+														<a class="btn btn-danger btn-attributes" asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Verwijderen</a>
+													</div>
+												</div>
+											</td>
+										</tr>
+									}
+								}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+		</tbody>
+	</table>
+}
+
+

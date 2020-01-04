@@ -10,5 +10,6 @@ namespace Oefenplatform.MVC.Areas.Admin.Models
     {
         public ICollection<SchoolUser> Users { get; set; }
         public ICollection<ClassGroup> ClassGroups { get; set; }
+        public ICollection<SchoolUserCategory> Categories { get; set; }
     }
 }

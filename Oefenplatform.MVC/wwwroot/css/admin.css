@@ -1,0 +1,27 @@
+﻿body {
+	background-color:beige;
+}
+
+.linkImage{
+	width: 35%;
+	height: 35%;
+}
+
+.navbar-custom {
+	background-color: #578322
+}
+
+.footer-color{
+	background-color:white;
+}
+
+.btn-color {
+	background-color: #578322;
+	color:white;
+	font-weight:bolder
+}
+
+.btn-attributes{
+	margin:1px
+}
+
