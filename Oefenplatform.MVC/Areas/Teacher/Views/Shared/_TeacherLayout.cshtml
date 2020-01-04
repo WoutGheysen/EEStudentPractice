@@ -15,13 +15,13 @@
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/teacherArea.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 navbar-custom">
             <div class="container">
-                <a class="navbar-brand" asp-area="Teacher" asp-controller="Home" asp-action="Index">Oefenplatform | Teacher</a>
+                <a class="navbar-brand" asp-area="Teacher" asp-controller="Home" asp-action="Index"><img class="homeImage" src="~/images/biesWeideLogoLeraars.png" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -30,19 +30,22 @@
                     @*<partial name="_LoginPartial" />*@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light font-weight-bolder" asp-area="Teacher" asp-controller="LangFirstQuestions" asp-action="Index">Taalvragen(1ste)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="IndexVue">Index Vue</a>
+                            <a class="nav-link text-light font-weight-bolder" asp-area="Teacher" asp-controller="LangQuestions" asp-action="Index">Taalvragen(2de &amp; 3de)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Question" asp-action="Index">Question</a>
+                            <a class="nav-link text-light font-weight-bolder" asp-area="Teacher" asp-controller="AssessmentFirstLang" asp-action="Index">Taaltoetsen(1ste)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light font-weight-bolder"  asp-controller="Home" asp-action="Index">Studentenportaal</a>
                         </li>
                         <li class="nav-item">
                             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
                                   asp-route-returnUrl="@Url.Page("/", new { area = "" })"
                                   method="post">
-                                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                <button type="submit" class="nav-link btn btn-link font-weight-bolder text-danger">Logout</button>
                             </form>
                         </li>
                     </ul>
@@ -57,9 +60,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted footer-color-custom">
         <div class="container">
-            &copy; 2019 - Oefenplatform.MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - Oefenplatform
         </div>
     </footer>
 
