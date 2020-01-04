@@ -30,6 +30,24 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
             return View(schoolUserCategoryViewModel);
         }
 
+        public IActionResult Details(int id)
+        {
+            string fullLink = $"{baseUri}/SchoolUserCategory/{id}";
+            string userLink = $"{baseUri}/SchoolUser";
+            var userCategory = WebApiService.GetApiResult<SchoolUserCategory>(fullLink);
+            var users = WebApiService.GetApiResult<List<SchoolUser>>(userLink);
+
+            SchoolUserCategoryDetailViewModel detailVm = new SchoolUserCategoryDetailViewModel
+            {
+                Id = userCategory.Id,
+                Category = userCategory.Category,
+                SchoolUsers = users
+
+            };
+
+            return View(detailVm);
+        }
+
         public IActionResult Add()
         {
             SchoolUserCategoryDetailViewModel schoolUserCategoryDetailViewModel = new SchoolUserCategoryDetailViewModel

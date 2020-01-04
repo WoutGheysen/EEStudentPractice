@@ -21,5 +21,7 @@ namespace Oefenplatform.MVC.Areas.Admin.Models
         public SelectList YearGradeOptions { get; set; }
         [Required(ErrorMessage = "Gelieve de klasleden in te geven.")]
         public ICollection<SchoolUser> SchoolUsers { get; set; }
+        public SchoolUser SchoolUser { get; set; }
+
     }
 }

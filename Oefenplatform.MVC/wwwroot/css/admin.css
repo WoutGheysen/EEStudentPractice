@@ -1,0 +1,41 @@
+﻿html, body{
+	height:100%;
+}
+
+body {
+	background-color: beige;
+	display: flex;
+	flex-direction: column;
+}
+
+.linkImage{
+	width: 35%;
+	height: 35%;
+}
+.container {
+	flex: 1 0 auto;
+}
+.navbar-custom {
+	background-color: #578322
+}
+
+.text-custom-color {
+	color: #578322;
+	font-weight:bolder;
+}
+
+.footer-color{
+	background-color:white;
+	flex-shrink:0;
+}
+
+.btn-color {
+	background-color: #578322;
+	color:white;
+	font-weight:bolder
+}
+
+.btn-attributes{
+	margin:1px
+}
+

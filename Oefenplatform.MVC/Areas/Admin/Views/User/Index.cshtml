@@ -3,12 +3,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>@($"{Model.LastName} {Model.FirstName}")</h1>
+<h1>@($"{Model.LastName} {Model.FirstName}")</h1><br />
 <label>klas: @Model.ClassGroup.ClassGroupName</label><br />
 <label>Categorie: @Model.SchoolUserCategory.Category</label><br />
 
-<a asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id">Wijzigen</a>
+<a class="btn btn-warning" asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id">Wijzigen</a>
 <a class="btn btn-danger" asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id">Verwijderen</a>
-<a asp-controller="Home" asp-action="Index">Terug naar lijst</a>
+<a class="btn btn-color btn-attributes" asp-controller="User" asp-action="Overview">Terug naar lijst</a>
 
 

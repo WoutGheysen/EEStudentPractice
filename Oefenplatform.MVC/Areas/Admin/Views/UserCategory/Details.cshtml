@@ -1,0 +1,61 @@
+﻿@model Oefenplatform.MVC.Areas.Admin.Models.SchoolUserCategoryDetailViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-custom-color">Gebruikersgroep @Model.Category</h1>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Gebruiker
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Naam
+                            </th>
+                            <th>
+                                Groep
+                            </th>
+                            <th>
+                                Klas
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.SchoolUsers)
+                        {
+                            if (user.SchoolUserCategoryId == Model.Id)
+                            {
+                                <tr>
+                                    <td>
+                                        @($"{user.FirstName} {user.LastName}")
+                                    </td>
+                                    <td>
+                                        @user.SchoolUserCategory.Category
+                                    </td>
+                                    <td>
+                                        @user.ClassGroup.ClassGroupName
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div>
+    <a class="btn btn-color btn-attributes" asp-controller="UserCategory" asp-action="Index">Terug naar lijst</a>
+</div>
+
+
