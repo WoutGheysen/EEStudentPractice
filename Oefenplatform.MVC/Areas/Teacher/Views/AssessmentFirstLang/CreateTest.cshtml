@@ -4,16 +4,16 @@
 	ViewData["Title"] = "CreateTest";
 }
 
-<h1>CreateTest</h1>
+<h1>Test Aanmaken (Eerste Graad)</h1>
 <form asp-action="Save" method="post">
 	<table class="table">
 		<thead>
 			<tr>
 				<th>
 					@Html.DisplayNameFor(model => model)
+					Beschrijving
 				</th>
 				<th>
-					Description
 				</th>
 				<th>
 					Selecteer Vraag
@@ -38,5 +38,5 @@
 			}
 		</tbody>
 	</table>
-	<input type="submit" value="Opslaan" class="btn btn-primary" />
+	<input disabled="disabled" type="submit" value="Opslaan" class="btn btn-primary" />
 </form>
