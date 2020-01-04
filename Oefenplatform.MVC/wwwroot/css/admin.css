@@ -11,6 +11,11 @@
 	background-color: #578322
 }
 
+.text-custom-color {
+	color: #578322;
+	font-weight:bolder;
+}
+
 .footer-color{
 	background-color:white;
 }

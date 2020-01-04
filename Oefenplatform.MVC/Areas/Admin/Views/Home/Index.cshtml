@@ -3,26 +3,10 @@
 	ViewData["Title"] = "Index";
 }
 
-<h1>Gebruikers</h1>
-<form class="form-inline" asp-area="Identity" asp-page="/Account/Register"
-	  asp-route-returnUrl="@Url.Page("/", new { area = "" })"
-	  method="get">
-	<button type="submit">Maak nieuwe gebruiker aan.</button>
-</form>
+<h1>Administrator pagina</h1>
+
 
 <a asp-area="Admin" asp-controller="Classgroup" asp-action="Index">Klasgroepen bekijken</a>
 <a asp-area="Admin" asp-controller="UserCategory" asp-action="Index">Categoriëen bekijken</a>
 
-@foreach (var classGroup in Model.ClassGroups)
-{
-	<h2>@classGroup.ClassGroupName</h2>
-	@foreach (var user in Model.Users)
-	{
-		if (user.ClassGroup.Id == classGroup.Id)
-		{
-			<label>@($"{user.LastName} {user.FirstName}")</label>
-			<a asp-area="Admin" asp-controller="User" asp-action="Index" asp-route-id="@user.Id">Details</a>
-		}
-	}
-}
 

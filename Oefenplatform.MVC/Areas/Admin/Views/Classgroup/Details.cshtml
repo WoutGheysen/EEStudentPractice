@@ -1,0 +1,69 @@
+﻿@model Oefenplatform.MVC.Areas.Admin.Models.ClassGroupDetailViewModel
+@{
+	ViewData["Title"] = "Details";
+}
+
+<h1 class="text-custom-color">Klas @Model.ClassGroupName</h1>
+<br />
+<h3 class="text-custom-color">
+	@if (Model.YearGrade.Grade == 1)
+	{
+		@($"{ Model.YearGrade.Grade}ste graad");
+	}
+	else
+	{
+		@($"{ Model.YearGrade.Grade}de graad");
+	}
+</h3>
+<table>
+	<thead>
+		<tr>
+			<th>
+				Gebruiker
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>
+								Naam
+							</th>
+							<th>
+								Groep
+							</th>
+							<th>
+								Klas
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var user in Model.SchoolUsers)
+						{
+							if (user.ClassGroupId == Model.Id)
+							{
+								<tr>
+									<td>
+										@($"{user.FirstName} {user.LastName}")
+									</td>
+									<td>
+										@user.SchoolUserCategory.Category
+									</td>
+									<td>
+										@user.ClassGroup.ClassGroupName
+									</td>
+								</tr>
+							}
+						}
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div>
+	<a class="btn btn-color btn-attributes" asp-controller="ClassGroup" asp-action="Index">Terug naar lijst</a>
+</div>

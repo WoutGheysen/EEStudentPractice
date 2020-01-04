@@ -5,12 +5,44 @@
 
 <h1>Klasgroepen</h1>
 
-<a asp-controller="Classgroup" asp-action="Add">Nieuwe groep</a>
+<form class="form-inline" asp-area="Admin" asp-controller="Classgroup" asp-action="Add"
+      method="get">
+    <button type="submit" class="btn btn-danger btn-attributes">Maak nieuwe klasgroep aan</button>
+</form>
 
-@foreach (var item in Model.classGroups)
-{
-    <label>@item.ClassGroupName</label>
-    <a asp-controller="Classgroup" asp-action="Edit" asp-route-id="@item.Id">Wijzigen</a>
-    <a class="btn btn-danger" asp-controller="Classgroup" asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
-}
-<a asp-controller="Home" asp-action="Index">Terug naar lijst</a>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Klas
+            </th>
+            <th>
+                Acties
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var klas in Model.classGroups)
+		{
+            <tr>
+                <td>
+                    @klas.ClassGroupName
+                </td>
+                <td>
+                    <div class="d-inline-flex">
+                        <div>
+                            <a class="btn btn-warning btn-color btn-attributes" asp-controller="Classgroup" asp-action="Details" asp-route-id="@klas.Id">Details</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-warning btn-attributes" asp-controller="Classgroup" asp-action="Edit" asp-route-id="@klas.Id">Aanpassen</a>
+                        </div>
+                        @*<div>
+                            <a class="btn btn-danger btn-attributes" asp-controller="Classgroup" asp-action="Delete" asp-route-id="@klas.Id">Verwijderen</a>
+                        </div>*@
+                    </div>
+                </td>
+            </tr>
+		}
+    </tbody>
+</table>
+
