@@ -42,8 +42,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: beige;
 }
 .footer {
   position: absolute;
@@ -58,4 +59,13 @@ body {
 .linkImage{
     width: 35%;
     height: 35%;
+}
+
+.text-custom-color {
+    color: #578322;
+    font-weight: bolder;
+}
+
+.navbar-custom {
+    background-color: #578322
 }
