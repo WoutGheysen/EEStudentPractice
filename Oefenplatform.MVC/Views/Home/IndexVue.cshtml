@@ -23,13 +23,13 @@
             <div class="form-group">
                 <nav>
                     <ul>
-                        <li v-for="question in questionsArray" >
+                        <li v-for="question in questionsArray">
                             <span class="questionTitle">{{question.questionTitle}}</span><input class="questionId" v-bind:id="question.id" />
-                           
+
+                            <button class="questionId" type="button" id="confirmButton" v-on:click="CheckAnswer(question.id)">Controleer</button>
                             <textarea rows="5" class="questionTitle" v-bind:id="question.questionTitle"></textarea>
-                            <button class="questionId"  type="button" id="confirmButton" v-on:click="CheckAnswer(question.id)" >Controleer</button>
-                            
-                            
+
+
                         </li>
                     </ul>
                     <button id="nextQuestion" value="Volgende vraag"></button>
@@ -178,7 +178,7 @@
                                     for (i ; i < 25; i++) {
                                         
                                         var newQuestion = {
-                                            questionTitle: "Oefening" + i + ": " + question.startNumber + ' X ' + i + ' = ',
+                                            questionTitle: "Oefening" + (i-1) + ": " + question.startNumber + ' X ' + i + ' = ',
                                             description: null,
                                             startNumber: question.startNumber,
                                             feedback: null,
@@ -243,31 +243,54 @@
                     if (question.questionCategory.categoryQuestion == "Tafels") {
                         console.log("controle tafels");
                         if (question.answer.mathAnswer === parseInt(answered)) {
+                            var area = document.getElementById(question.questionTitle);
                             console.log("correct");
                             answered.isActive = false;
+                            area.textContent = "correct";
                         }
                     }
                     else if (question.answer.mathAnswer != parseInt(answered)) {
                         question.attempts = question.attempts + 1;
                         var area = document.getElementById(question.questionTitle);
                         if (question.attempts == 1) {
-
+                            console.log("poging 1 : incorrect");
+                        area.textContent = "poging 1 : incorrect";
+                        }
+                        if (question.attempts == 2) {
+                            area.textContent = "poging 2 : incorrect";
+                        }
+                        if (question.attempts == 3) {
+                            area.textContent = "poging 3 : incorrect";
                         }
 
 
-                        console.log("incorrect");
                         
                         
                     }
                  
                     if (question.questionCategory.categoryQuestion == "Splitsen") {
                         if (question.answer.mathAnswer === parseInt(answered)) {
+                            question.attempts = question.attempts + 1;
+                            var area = document.getElementById(question.questionTitle);
                             console.log("correct");
                             answered.isActive = false;
+                            area.textContent = "correct";
                         }
                     }
                     else if (question.answer.mathAnswer != parseInt(answered)) {
+                        question.attempts = question.attempts + 1;
+                        if (question.attempts == 1) {
+                            var area = document.getElementById(question.questionTitle);
                         console.log("incorrect");
+                        area.textContent = "poging 1 : incorrect"
+                        }
+                        if (question.attempts == 2) {
+                            area.textContent = "poging 2 : incorrect";
+                        }
+                        if (question.attempts == 3) {
+                            area.textContent = "poging 3 : incorrect";
+                        }
+                        
                     }
         }
 
