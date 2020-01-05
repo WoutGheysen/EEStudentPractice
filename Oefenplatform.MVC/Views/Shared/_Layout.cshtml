@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Oefenplatform.MVC</title>
+    <title>@ViewData["Title"] - Oefenplatform</title>
     <link rel="icon" href="~/icons/biesweideIcon.png" type="image/svg" />
-
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
@@ -20,7 +19,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-2 navbar-custom">
             <div class="container">
                 @await Component.InvokeAsync("Navbar")
                 @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Oefenplatform</a>*@
