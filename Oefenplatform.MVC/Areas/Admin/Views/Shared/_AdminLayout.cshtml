@@ -24,9 +24,11 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-2 navbar-custom">
             <div class="container">
-                <a class="navbar-brand navbar-brand-custom" asp-area="Admin" asp-controller="Home" asp-action="Index">
-                <img src="~/images/biesWeideLogoAdmin.png" class="linkImage"/>
-                </a>
+                @await Component.InvokeAsync("Navbar")
+
+                @*<a class="navbar-brand navbar-brand-custom" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/biesWeideLogoAdmin.png" class="linkImage" />
+                </a>*@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
