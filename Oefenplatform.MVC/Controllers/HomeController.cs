@@ -49,6 +49,11 @@ namespace Oefenplatform.MVC.Controllers
             return View();
         }
 
+        public IActionResult IndexWithoutRedirect()
+        {
+            return View();
+        }
+
         public ActionResult IndexVue()
         {
             return View();
