@@ -28,13 +28,15 @@ html {
 }
 
 body {
+	margin-bottom: 60px;
 	background-color: beige;
+	padding-top: 80px;
 }
 
-.linkImage{
+/*.linkImage{
 	width: 35%;
 	height: 35%;
-}
+}*/
 
 .navbar-custom {
 	background-color: #578322
