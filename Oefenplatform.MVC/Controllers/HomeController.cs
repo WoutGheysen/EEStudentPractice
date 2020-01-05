@@ -32,7 +32,10 @@ namespace Oefenplatform.MVC.Controllers
             string fullLink = $"{baseUri}/SchoolUser";
 
             string loggedUserid = _user.GetUserId(User);
-
+            if(loggedUserid == null)
+            {
+                return Redirect("/Identity/Account/Login");
+            }
             string userByIdentityReference = $"{fullLink}/IdRef/{loggedUserid}";
             var user = WebApiService.GetApiResult<SchoolUser>(userByIdentityReference);
 
