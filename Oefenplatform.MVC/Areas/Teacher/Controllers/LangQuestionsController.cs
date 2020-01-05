@@ -163,14 +163,14 @@ namespace Oefenplatform.MVC.Areas.Teacher.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            //var questionToDeleteLink = $"{baseUri}/Question/{id}";
-            //var questionToDelete = WebApiService.GetApiResult<Question>(questionToDeleteLink);
-            //var feedBackOne = questionToDelete.Feedback.ElementAt(0);
-            //var feedBackOneLink = $"{baseUri}/Feedback/{feedBackOne.Id}";
-            //var deletedFeedBackOne = await WebApiService.DeleteCallApi<Feedback>(feedBackOneLink);
-            //var feedBackTwo = questionToDelete.Feedback.ElementAt(1);
-            //var feedBackTwoLink = $"{baseUri}/Feedback/{feedBackTwo.Id}";
-            //var deletedFeedBackTwo = await WebApiService.DeleteCallApi<Feedback>(feedBackTwoLink);
+            var questionToDeleteLink = $"{baseUri}/Question/{id}";
+            var questionToDelete = WebApiService.GetApiResult<Question>(questionToDeleteLink);
+            var feedBackOne = questionToDelete.Feedback.ElementAt(0);
+            var feedBackOneLink = $"{baseUri}/Feedback/{feedBackOne.Id}";
+            var deletedFeedBackOne = await WebApiService.DeleteCallApi<Feedback>(feedBackOneLink);
+            var feedBackTwo = questionToDelete.Feedback.ElementAt(1);
+            var feedBackTwoLink = $"{baseUri}/Feedback/{feedBackTwo.Id}";
+            var deletedFeedBackTwo = await WebApiService.DeleteCallApi<Feedback>(feedBackTwoLink);
 
             var questionLink = $"{baseUri}/Question/{id}";
             var deletedQuestion = await WebApiService.DeleteCallApi<Question>(questionLink);

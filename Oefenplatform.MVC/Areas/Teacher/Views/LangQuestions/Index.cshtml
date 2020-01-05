@@ -2,13 +2,12 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Taalvragen Tweede en Derde Graad</h1>
 
 <p>
-    <a asp-action="Create">Aanmaken</a>
+    <a class="btn btn-colour-custom" asp-action="Create">Aanmaken</a>
 </p>
 <table class="table">
     <thead>
@@ -22,12 +21,15 @@
 @foreach (var item in Model.Questions) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Id) |
+                @Html.DisplayFor(modelItem => item.QuestionTitle) <br />
                 @Html.DisplayFor(modelItem => item.Description)
+
             </td>
             <td>
-                <a asp-action="Update" asp-route-id="@item.Id">Aanpassen</a> |
-                <a asp-action="Detail" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
+                <a class="btn btn-warning" asp-action="Update" asp-route-id="@item.Id">Aanpassen</a> 
+                <a class="btn btn-colour-custom" asp-action="Detail" asp-route-id="@item.Id">Details</a> 
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
             </td>
         </tr>
 }

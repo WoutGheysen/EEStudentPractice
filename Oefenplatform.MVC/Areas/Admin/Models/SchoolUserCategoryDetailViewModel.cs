@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Oefenplatform.Lib.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Oefenplatform.MVC.Areas.Admin.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "Gelieve een soort gebruiker in te geven.")]
         public string Category { get; set; }
+        public ICollection<SchoolUser> SchoolUsers { get; set; }
     }
 }

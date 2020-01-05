@@ -100,6 +100,7 @@ namespace Oefenplatform.WebAPI.Data
                     QuestionCategoryId = 2,
                     AnswerId = 6,
                     Attempts = 0,
+                    AssessmentDetailId = 1,
                     AssessmentId = 2,
                 }
                 );
@@ -113,6 +114,7 @@ namespace Oefenplatform.WebAPI.Data
                     FileName = "BOS.png",
                     QuestionCategoryId = 2,
                     AnswerId = 7,
+                    AssessmentDetailId = 1,
                     Attempts = 0,
                     AssessmentId = 2,
                 }
@@ -127,6 +129,7 @@ namespace Oefenplatform.WebAPI.Data
                     FileName = "PET.png",
                     QuestionCategoryId = 2,
                     AnswerId = 8,
+                    AssessmentDetailId = 1,
                     Attempts = 0,
                     AssessmentId = 2,
                 }
@@ -299,6 +302,7 @@ namespace Oefenplatform.WebAPI.Data
                     AnswerId = 20,
                     Attempts = 0,
                     AssessmentId = 5,
+
                 }
                 );
 
@@ -317,6 +321,17 @@ namespace Oefenplatform.WebAPI.Data
                 );
 
             
+            #endregion
+            #region AssessmentDetails
+            modelBuilder.Entity<AssessmentDetail>()
+                .HasData(
+                new
+                {
+                    Id = 1,
+                    AssessmentTitle = "Test Detail",
+                    AssessmentId = 2
+                }
+                );
             #endregion
             #region Answers
             //Answers: Splitsoefeningen
@@ -616,7 +631,6 @@ namespace Oefenplatform.WebAPI.Data
 
            
             #endregion
-
             #region Feedback
             //Feedback: Fotoselectie
             modelBuilder.Entity<Feedback>()
@@ -1170,25 +1184,11 @@ namespace Oefenplatform.WebAPI.Data
                     Grade = 3
                 });
             #endregion
-            #region SchoolUsers
-            modelBuilder.Entity<SchoolUser>()
-                .HasData(
-                new
-                {
-                    FirstName = "first",
-                    LastName = "testSchoolUser",
-                    ClassGroupId = 1,
-                    Password = "test",
-                    Id = Guid.Parse(Guid.NewGuid().ToString()),
-                    SchoolUserCategoryId = 1,
-                    IdentityReference = "00000000-0000-0000-0000-000000000001"
-                });
-            #endregion
 
 
             modelBuilder.Entity<Question>()
             .HasOne(q => q.Answer);
-            
+
             modelBuilder.Entity<Question>()
             .HasOne(q => q.QuestionCategory);
 

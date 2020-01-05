@@ -32,6 +32,27 @@ namespace Oefenplatform.MVC.Areas.Admin.Controllers
             return View(classGroupViewModel);
         }
 
+        public IActionResult Details(int id)
+        {
+            string classgroupLink = $"{baseUri}/ClassGroup";
+            string fullLink = $"{baseUri}/ClassGroup/{id}";
+            string userLink = $"{baseUri}/SchoolUser";
+            var classGroup = WebApiService.GetApiResult<ClassGroup>(fullLink);
+            var users = WebApiService.GetApiResult<List<SchoolUser>>(userLink);
+
+            ClassGroupDetailViewModel detailVm = new ClassGroupDetailViewModel
+            {
+                Id = classGroup.Id,
+                ClassGroupName = classGroup.ClassGroupName,
+                YearGrade = classGroup.YearGrade,
+                SelectedYearGradeId = classGroup.YearGradeId,
+                SchoolUsers = users
+
+            };
+
+            return View(detailVm);
+        }
+
         public IActionResult Add()
         {
             string fullLink = $"{baseUri}/YearGrade";

@@ -1,7 +1,6 @@
 ﻿@model Oefenplatform.MVC.Areas.Admin.Models.ClassGroupDetailViewModel
 @{
     ViewData["Title"] = "Add";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Nieuwe groep</h1>
@@ -22,12 +21,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Opslaan" class="btn btn-primary" />
+                <input type="submit" value="Opslaan" class="btn btn-color btn-attributes" />
             </div>
         </form>
     </div>
 </div>
-
 <div>
-    <a asp-controller="Classgroup" asp-action="Index">Terug naar klasgroepen lijst</a>
+    <a asp-controller="Classgroup" asp-action="Index">Terug naar klassenoverzicht</a>
 </div>
+

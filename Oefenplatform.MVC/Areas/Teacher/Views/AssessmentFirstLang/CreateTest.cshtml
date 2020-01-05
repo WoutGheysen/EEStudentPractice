@@ -1,44 +1,42 @@
-﻿@model Oefenplatform.MVC.Areas.Teacher.Models.AssessmentFirstLang.AssessmentFirstLangCreateTestVm
+﻿@model List<Oefenplatform.MVC.Areas.Teacher.Models.AssessmentFirstLang.AssessmentFirstLangCreateTestDetailVm>
 
 @{
-    ViewData["Title"] = "CreateTest";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "CreateTest";
 }
 
-<h1>CreateTest</h1>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Questions)
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Selecteer Vraag
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Questions)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QuestionTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @*<label class="container">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>*@
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<h1>Test Aanmaken (Eerste Graad)</h1>
+<form asp-action="Save" method="post">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model)
+					Beschrijving
+				</th>
+				<th>
+				</th>
+				<th>
+					Selecteer Vraag
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (int i = 0; i < Model.Count; i++)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => Model[i].QuestionToAdd.QuestionTitle)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => Model[i].QuestionToAdd.Description)
+					</td>
+					<td>
+						<input type="hidden" asp-for="@Model[i].QuestionId" />
+						<input asp-for="@Model[i].IsToBeAdded"/>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<input disabled="disabled" type="submit" value="Opslaan" class="btn btn-primary" />
+</form>

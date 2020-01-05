@@ -20,6 +20,9 @@ namespace Oefenplatform.WebAPI.Repositories
         {
             return await _oefenplatformContext.Assessment
                 .Where(q => q.Id == id)
+                .Include(q => q.YearGrade)
+                .Include(q => q.SchoolUser)
+                .Include(q => q.CourseCategory)
                 .Include(a => a.AssessmentDetails)
                 .FirstOrDefaultAsync();
         }

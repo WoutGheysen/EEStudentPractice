@@ -1,17 +1,45 @@
 ﻿@model Oefenplatform.MVC.Areas.Admin.Models.SchoolUserCategoryViewModel
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Index";
 }
 
-<h1>Categoriëen</h1>
+<h1>Gebruikersgroepen</h1>
 
-<a asp-controller="UserCategory" asp-action="Add">Nieuwe categorie</a>
 
-@foreach (var item in Model.schoolUserCategories)
-{
-    <label>@item.Category</label>
-    <a asp-controller="UserCategory" asp-action="Edit" asp-route-id="@item.Id">Wijzigen</a>
-    <a class="btn btn-danger" asp-controller="UserCategory" asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
-}
-<a asp-controller="Home" asp-action="Index">Terug naar lijst</a>
+<form class="form-inline" asp-area="Admin" asp-controller="UserCategory" asp-action="Add"
+	  method="get">
+	<button type="submit" class="btn btn-danger btn-attributes">Maak nieuwe gebruikersgroep aan</button>
+</form>
+
+<table>
+	<thead>
+		<tr>
+			<th>
+				Gebruikersgroep
+			</th>
+			<th>
+				Acties
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.schoolUserCategories)
+		{
+			<tr>
+				<td>
+					@item.Category
+				</td>
+				<td>
+					<div class="d-inline-flex">
+						<div>
+							<a class="btn btn-success btn-color btn-attributes" asp-controller="UserCategory" asp-action="Details" asp-route-id="@item.Id">Details</a>
+						</div>
+						<div>
+							<a class="btn btn-warning btn-attributes" asp-controller="UserCategory" asp-action="Edit" asp-route-id="@item.Id">Aanpassen</a>
+						</div>
+					</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

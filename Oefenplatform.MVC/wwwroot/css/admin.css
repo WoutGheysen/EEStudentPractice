@@ -1,0 +1,73 @@
+﻿
+
+html {
+	font-size: 14px;
+}
+
+@media (min-width: 768px) {
+	html {
+		font-size: 16px;
+	}
+}
+
+.border-top {
+	border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+	box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	margin-bottom: 60px;
+	background-color: beige;
+	padding-top: 80px;
+}
+
+/*.linkImage{
+	width: 35%;
+	height: 35%;
+}*/
+
+.navbar-custom {
+	background-color: #578322
+}
+
+.text-custom-color {
+	color: #578322;
+	font-weight:bolder;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	white-space: nowrap;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	line-height: 60px; /* Vertically center the text there */
+}
+
+.footer-color{
+	background-color:white;
+}
+
+.btn-color {
+	background-color: #578322;
+	color:white;
+	font-weight:bolder
+}
+
+.btn-attributes{
+	margin:1px
+}
+
